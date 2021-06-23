@@ -1,0 +1,403 @@
+/* Medium Layout: 1280px. */
+
+@media only screen and (min-width: 992px) and (max-width: 1280px) {}
+
+
+/* Tablet Layout: 768px. */
+
+@media only screen and (min-width: 767px) and (max-width: 991px) {
+    .navbar-nav {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-nav li {
+        float: none;
+        display: inline-block;
+    }
+
+    .mainmenu .navbar-nav li a {
+        padding: 20px 3px;
+        font-size: 14px;
+    }
+
+    .mainmenu .navbar-nav li a {
+        padding: 20px 3px;
+        font-size: 14px;
+    }
+
+    .navbar-nav {
+        width: 100%;
+        text-align: right;
+    }
+
+    .mainmenu .navbar-nav li {
+        margin-right: 0;
+        margin-left: 30px;
+    }
+
+    .navbar-collapse {
+        padding-right: 0px;
+    }
+
+    .search-area input {
+        width: 375px !important;
+    }
+
+    .form-inline button {
+        left: 190px;
+    }
+
+    .single-blog img {
+        width: 100%;
+    }
+
+    .pricing-box {
+        margin-top: 30px;
+    }
+
+    .project-idea h2,
+    .project-idea p {
+        font-size: 22px;
+    }
+
+    .single-project-complete {
+        margin-top: 30px;
+    }
+
+    .about-text {
+        margin-top: 50px;
+    }
+
+    .section-title p {
+        padding: 0;
+    }
+
+    .contact-icon {
+        float: none;
+    }
+
+    .header-text p,
+    .single-testi-des {
+        padding: 0;
+    }
+
+    .call-to-action-small-button {
+        text-align: left;
+        margin-top: 25px;
+    }
+
+    .single-footer-top {
+        padding-bottom: 30px;
+    }
+
+    .header-text h2 {
+        font-size: 60px;
+    }
+
+    .section-padding {
+        padding: 50px 0px;
+    }
+
+    .footer-top-area h6,
+    .footer-logo img {
+        margin-left: 0px;
+    }
+    .story-left {
+	margin-top: 0px;
+}
+}
+
+
+/* Mobile Layout: 320px. */
+
+@media only screen and (max-width: 767px) {
+    .logo a img {
+        width: 160px;
+    }
+
+    .navbar-toggle .icon-bar {
+        background: #fff;
+    }
+
+    .navbar-toggle .icon-bar {
+        display: block;
+        width: 30px;
+        height: 4px;
+        border-radius: 1px;
+    }
+
+    .menu-bg .navbar-toggle .icon-bar {
+        background: #fff;
+    }
+
+    .navbar-toggle {
+        margin-right: 0px;
+        width: auto;
+    }
+
+    .search-area input {
+        width: 100% !important;
+    }
+
+    .navbar {
+        min-height: 0px;
+    }
+
+    .navbar-header {
+        text-align: center;
+    }
+
+    .mainmenu .navbar-nav li a {
+        padding: 11px 15px;
+    }
+
+    .menu-bg .mainmenu .navbar-nav li a {
+        padding: 11px 15px;
+    }
+
+    .navbar-fixed-bottom .navbar-collapse,
+    .navbar-fixed-top .navbar-collapse {
+        max-height: 420px;
+    }
+
+    .navbar-collapse {
+        background: #936a35;
+    }
+
+    .slider-text h2 {
+        font-weight: 700;
+        font-size: 26px;
+        line-height: 33px;
+    }
+
+    .menu-bg .navbar-collapse {
+        background: #000;
+    }
+
+    .menu-bg .mainmenu .navbar-nav li a {
+        color: #fff;
+    }
+
+    .menu-bg .mainmenu .navbar-nav li a:hover {
+        color: #ccc;
+    }
+
+    .mainmenu .navbar-nav li a:hover {
+        color: #ccc;
+    }
+
+    .menu-bg .navbar-collapse {}
+
+    .welcome-image-area,
+    .welcome-video-area {
+        padding-top: 120px;
+    }
+
+    .welcome-image-area h2,
+    .single-slide-item h2,
+    .welcome-video-area h2,
+    .about-text h2,
+    .call-to-area-text h2 {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    .slider-control {
+        display: none;
+    }
+
+    a.slide-btn {
+        font-size: 12px;
+        padding: 10px;
+        margin-bottom: 5px;
+    }
+
+    .section-title h2 {
+        font-size: 30px;
+        margin-bottom: 30px;
+    }
+
+    .about-image img {
+        border-radius: 0px 60px 0px 60px;
+    }
+
+    .footer-social-link {
+        text-align: left;
+        margin-top: 20px;
+    }
+
+    .pricing-box {
+        margin-top: 30px;
+    }
+
+    .single-testimonial {
+        padding: 20px;
+        border-radius: 0px 50px 0px 50px;
+    }
+
+    .video-area-text {
+        margin-top: 50px;
+    }
+
+    .footer-social-link {
+        text-align: center;
+    }
+
+    .footer-area img {
+        margin-bottom: 0px;
+    }
+
+    .scrollup {
+        height: 40px;
+        width: 40px;
+        line-height: 35px;
+    }
+
+    .single-project-complete {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .header-text {
+        margin-top: 10px;
+    }
+
+    .footer-text h6 {
+        font-size: 14px;
+    }
+
+    .footer-area {
+        padding: 50px 0px;
+    }
+
+    .section-padding {
+        padding: 30px 0px;
+    }
+
+    .about-text {
+        margin-top: 30px;
+    }
+
+    .margin-top-c {
+        margin-top: 0px;
+    }
+
+    .section-title p {
+        padding: 0;
+    }
+
+    .single-contact-details {
+        margin-bottom: 30px;
+    }
+
+    .item .grid figure,
+    .gallery .grid figure {
+        min-width: 100%;
+    }
+
+    .header-text p,
+    .single-testi-des {
+        padding: 0;
+    }
+
+    .call-to-action-small-button {
+        text-align: left;
+        margin-top: 25px;
+    }
+
+
+    .single-footer-top h2 {
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .single-footer-top {
+        padding-bottom: 30px;
+    }
+
+    .contact-social ul li {
+        display: inline-block;
+        margin: 5px 15px;
+    }
+
+    .slider-bottom-text {
+        padding: 0px;
+    }
+
+    .footer-menu ul li {
+        text-align: center;
+    }
+
+    .border-right-line {
+        border-bottom: 1px solid #f9f9f9;
+    }
+
+    .single-account {
+        margin-bottom: 30px;
+    }
+
+    .single-why {
+        margin-bottom: 30px;
+    }
+
+    .story-left {
+        margin-top: 10px;
+    }
+
+    .footer-logo {
+        text-align: center;
+    }
+
+    .footer-top-area p {
+        padding-right: 0px;
+        color: #fff;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .contact-social ul li {
+        display: inline-block;
+        margin: 5px 0px;
+    }
+
+    .form-inline button {
+        background: transparent;
+        margin-top: -23px;
+        text-align: center;
+        margin-left: 50px;
+    }
+
+    .header-menu-cart-option {
+        margin-top: 0px;
+    }
+
+    .search-area {
+        margin-top: 0px;
+    }
+
+    .head-cart {
+        width: 305px;
+    }
+
+    .footer-logo img,
+    .footer-top-area h6 {
+        margin-left: 0px;
+    }
+
+    .footer-top-area h6 {
+        margin-bottom: 30px;
+    }
+
+    .slider-text p {
+        font-size: 16px;
+    }
+    .input-prepend input {
+    width: 250px;
+}
+}
+
+
+/* Wide Mobile Layout: 480px. */
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {}
