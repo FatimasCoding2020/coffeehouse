@@ -1,0 +1,220 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- START HEADER AREA -->
+    <header id="home" class="welcome-area header-bg-gif">
+        <div class="container">
+            <div class="row border-bottom-line">
+                <div class="col-md-3 col-xs-4 col-sm-4">
+                    <!-- START LOGO   AREA -->
+                    <div class="logo">
+                        <a href="{% url 'home' %}">
+                            <img src="{% static 'assets/images/logo.png' %}" alt="">
+                        </a>
+                    </div>
+                    <!-- END LOGO   AREA -->
+                </div>
+                <div class="col-md-5 col-xs-8 col-sm-8">
+                    <!-- START MENU   AREA -->
+                    <div class="mainmenu">
+                        <div class="navbar navbar-nobg">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav navbar-left">
+                                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">Our Collection<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            {% for d in data %}
+                                            <li><a href="{% url 'product' name=d.name %}">{{d.name}}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                    <li><a class="smooth-scroll" href="#ourstory">Our Story</a></li>
+                                    <li><a class="smooth-scroll" href="https://fatimasmails.wixsite.com/coffeehouse" target="_blank">Blog</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END MENU   AREA -->
+                </div>
+                <div class="col-md-2 col-xs-8 col-sm-6">
+                    <div class="search-area">
+                        <form class="form-inline">
+                            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-2 col-xs-4 text-right col-sm-6">
+                    <div class="header-menu-cart-option">
+                        <ul>
+                            <li class="user-click-option"><a href=""><i class="fa fa-user-circle"></i></a>
+                                <div class="user-area">
+                                    <ul>
+                                        <li><a href="{% url 'account_login' %}">Login</a></li>
+                                        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="head-shhoping-cart"><a href=""><i class="fa fa-shopping-bag"></i></a>
+                                <div class="head-cart">
+                                    <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated ‘serenade’ to bag!</h2>
+                                    <h3>Your Bag (1 )</h3>
+                                    <div class="head-cart-item">
+                                        <img src="{% static 'assets/images/collection/serenade.png' %}" alt="">
+                                        <h2>serenade</h2>
+                                        <h2>Quantity: 1</h2>
+                                        <p>Total Excluding Delivery : $40.00 <br>Spend $5.00 more for Free Delivery!</p>
+                                        <a class="shopping-bag-cart" href="shoppingbag.html">Go to shopping bag </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row slider-part">
+                <div class="col-md-12">
+                    <div class="slider-text">
+                        <h2>Bringing the World’s Best, Expertly Curated Artisan Coffee to You.</h2>
+                        <p>Sip your way to a memorable perfect cup! <br> Perfect brew and deliciously smooth..</p>
+                        <a href="#collection" class="smooth-scroll">Shop Now<i class="fa fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- / END HEADER AREA -->
+
+
+    <!-- START COLLECTION   AREA -->
+    <section id="collection" class="gallery section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="section-title">
+                        <h2>Our Collection</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- START SINGLE COLLECTION   AREA -->
+                {% for d in data %}
+                <div class="col-md-3 col-sm-6 mb30">
+                    <div class="item">
+                        <img src="{% static '' %}{{d.image}}" alt="image">
+                        <h2>{{d.name}}</h2>
+                        <a href="{% url 'product' name=d.name %}">Shop <i class="fa fa-angle-right"></i></a>
+                    </div>
+                </div>
+                <!-- END SINGLE COLLECTION   AREA -->
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- / END COLLECTION   AREA -->
+
+
+    <!-- START WHY   AREA -->
+    <section class="why-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="section-title">
+                        <h2>Why coffee house?</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-why">
+                        <i class="fas fa-award"></i>
+                        <h2>BEST QUALITY</h2>
+                        <p>Single Origin Quality. Fresh Roast. Seasonal. World’s best artisan coffee</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-why">
+                        <i class="fas fa-shipping-fast"></i>
+                        <h2>SHIPPING </h2>
+                        <p>Free shipping $45 or more. Tracked Service. Global. Delivered fast. Freshness guaranteed</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-why">
+                        <i class="fas fa-tree"></i>
+                        <h2>SUSTAINABILITY</h2>
+                        <p>10% donated from each sale for trees</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-why">
+                        <i class="far fa-credit-card"></i>
+                        <h2>QUICK & SAFE PAYMENTS </h2>
+                        <p>Quick and save payments</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END WHY   AREA -->
+
+    <!-- START OUR STORY   AREA -->
+    <section id="ourstory" class="our-story section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="section-title">
+                        <h2>Our Story</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="story-left">
+                        <p>We choose speciality coffees beans that are carefully selected for quality, cleanliness, sustainability and traceability. <br><br> We import high quality, fresh, seasonal crops from around the world. It is one of our principles to treasure the value chain from crop to cup.All beans are uniform and of highest grading.We hand roast the beans to meticulously bring out full unique flavour potential of each coffee. We ‘cup’ all batches to ensure the highest quality and purest of tastes. We maintain roast profile sheets so we can consistently deliver the same high quality.<br><br> Sustainability is an important criteria we use when sourcing our beans. As a company we are focused on superior quality and customer service.Coffee House understands the importance of social responsibility. We support communities across the globe in many ways – we regularly make donations to various charities and donate 10% of each sale for planting trees.<br><br> When it comes to industry standards-we go above and beyond.We are a proud member of the World Coffee Association.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="story-right">
+                        <img src="{% static 'assets/images/story.jpg' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END OUR STORY   AREA -->
+
+
+
+    <!-- START NEWSLETTER   AREA -->
+    <section class="news-letter section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="single-footer-top">
+                        <div id="subscribe" class="newsletter text-center">
+                            <h2>Subscribe and receive coffee news</h2>
+                            <form>
+                                <div class="input-prepend">
+                                    <input class="form-control" type="text" id="name" name="name" placeholder="Enter your email">
+                                </div>
+                                <input type="submit" value="Submit" class="btn btn-large read-more" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / END NEWSLETTER   AREA -->
+
+{% endblock %}>
