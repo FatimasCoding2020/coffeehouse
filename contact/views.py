@@ -19,4 +19,4 @@ def contact(request):
             'sku':product.sku
         })
     request.session['data'] = product_url
-    return render(request, 'home/contact.html', {'data':product_data,'cart':cart_data,'has_item':has_item})
+    return render(request, 'contacts/contact.html', {'data':product_data,'cart':cart_data,'has_item':has_item})

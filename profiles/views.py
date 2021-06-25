@@ -33,7 +33,7 @@ def add_profile(request):
         if form.is_valid():
             form.save()
 
-        return HttpResponseRedirect('/userprofile')
+        return HttpResponseRedirect('/')
 
 
 def change_password(request):
