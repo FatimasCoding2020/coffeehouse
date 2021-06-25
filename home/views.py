@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from products.models import Product
 from allauth.account.views import LoginView
+from coffeehouse.verify_request import verify_request
 
 
+@verify_request
 def index(request):
     """ View to return the index page """
 

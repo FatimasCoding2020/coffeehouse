@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from products.models import Product
+from coffeehouse.verify_request import verify_request
+
 
 # Create your views here.
 
+@verify_request
 def view_faq(request):
     products = Product.objects.all()
     product_data = []

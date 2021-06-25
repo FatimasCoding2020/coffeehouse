@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, reverse, HttpResponseRedirect
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
+from coffeehouse.verify_request import verify_request
 from products.models import Product
 
 
+@verify_request
 def view_shopping_bag(request):
     """ 
     View that renders the shopping bag page  which show the product that has been added to cart
@@ -16,6 +18,7 @@ def view_shopping_bag(request):
     return render(request, 'shopping_bag/shoppingbag.html',{'cart': cart_data,'has_item':has_item})
 
 
+@verify_request
 def add_to_shopping_bag(request, product_id):
 
     """ Add a quantity of the specified product to the shoppingbag """
@@ -40,6 +43,7 @@ def add_to_shopping_bag(request, product_id):
         return HttpResponseRedirect('/bag')
 
 
+@verify_request
 def delete_from_shopping_bag(request):
     
     """Delete the item from the shopping bag"""

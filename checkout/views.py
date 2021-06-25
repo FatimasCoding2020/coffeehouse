@@ -2,12 +2,16 @@ import stripe
 import datetime
 import random
 from django.shortcuts import render, HttpResponseRedirect
+from coffeehouse.verify_request import verify_request
+from django.contrib.auth.decorators import login_required
 
 
 stripe.api_key="sk_test_4eC39HqLyjWDarjtT1zdp7dc"
 
 # Create your views here.
 
+@verify_request
+@login_required
 def checkout(request):
     """
     This function includes the posst request which get shipping information and payment card details and proceed for payment 
@@ -57,6 +61,8 @@ def checkout(request):
     return render(request,'checkout/checkout.html',{'cart':cart_data,'has_item':has_item})
 
 
+@verify_request
+@login_required
 def complete_order(request):
     """
     This is order complete page showing summary of order product

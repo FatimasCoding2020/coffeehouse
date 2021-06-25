@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Product
+from coffeehouse.verify_request import verify_request
 
 
 
-
+@verify_request
 def view_product(request,name):
     product = Product.objects.filter(name__iexact=name).first()
     cart_data = request.session['cart'] if 'cart' in request.session else {}

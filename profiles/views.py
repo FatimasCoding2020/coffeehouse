@@ -6,10 +6,12 @@ from .forms import UserProfileForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate
+from coffeehouse.verify_request import verify_request
 
 
 # Create your views here.
 
+@verify_request
 @login_required
 def view_profile(request):
     products = Product.objects.all()
@@ -23,6 +25,8 @@ def view_profile(request):
     return render(request, 'profiles/profile.html', {'profile':profile,'cart':cart_data,'has_item':has_item})
 
 
+@verify_request
+@login_required
 def add_profile(request):
     if request.method == 'POST':
         data = request.POST.dict()
@@ -36,6 +40,8 @@ def add_profile(request):
         return HttpResponseRedirect('/')
 
 
+@verify_request
+@login_required
 def change_password(request):
     products = Product.objects.all()
     product_data = []
