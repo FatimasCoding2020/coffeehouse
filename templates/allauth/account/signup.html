@@ -37,7 +37,7 @@
                                             {% endfor %}
                                         </ul>
                                     </li>
-                                    <li><a class="smooth-scroll" href="index.html#ourstory">Our Story</a></li>
+                                    <li><a class="smooth-scroll" href="{% url 'home' %}#ourstory">Our Story</a></li>
                                     <li><a class="smooth-scroll" href="https://fatimasmails.wixsite.com/coffeehouse" target="_blank">Blog</a></li>
                                 </ul>
                             </div>
@@ -65,17 +65,24 @@
                                 </div>
                             </li>
                             <li class="head-shhoping-cart"><a href=""><i class="fa fa-shopping-bag"></i></a>
+                                {% if request.session.has_item %}
                                 <div class="head-cart">
-                                    <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated ‘serenade’ to bag!</h2>
-                                    <h3>Your Bag (1 )</h3>
+                                    <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{request.session.cart.name}} to bag!</h2>
+                                    <h3>Your Bag </h3>
                                     <div class="head-cart-item">
-                                        <img src="{% static 'assets/images/collection/serenade.png' %}" alt="">
-                                        <h2>serenade</h2>
-                                        <h2>Quantity: 1</h2>
-                                        <p>Total Excluding Delivery : $40.00 <br>Spend $5.00 more for Free Delivery!</p>
-                                        <a class="shopping-bag-cart" href="shoppingbag.html">Go to shopping bag </a>
+                                        <img src="{% static '' %}{{request.session.cart.image_link}}" alt="">
+                                        <h2>{{request.session.cart.name}}</h2>
+                                        <h2>Quantity: {{request.session.cart.quantity}}</h2>
+                                        <p>Total Excluding Delivery : ${{request.session.cart.subtotal}}<br>Spend $5.00 more for Free Delivery!</p>
+                                        <a class="shopping-bag-cart" href="{% url 'bag' %}">Go to shopping bag </a>
                                     </div>
                                 </div>
+                                {% else %}
+                                <div class="head-cart">
+                                    <h2 class="border-line"> Your cart is empty!</h2>
+                                    <a class="shopping-bag-cart" href="{% url 'home' %}#collection">Shop now</a>
+                                </div>
+                                {% endif %}
                             </li>
                         </ul>
                     </div>

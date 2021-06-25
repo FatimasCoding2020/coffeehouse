@@ -5,19 +5,14 @@ from .models import Product
 
 
 def view_product(request,name):
-
-    """ This is a View function mapped to product detail page returning the a particular data of the product
-        here this function takes product name as function arguement
-    
-    """
-
     product = Product.objects.filter(name__iexact=name).first()
-    products = Product.objects.all()
+    cart_data = request.session['cart'] if 'cart' in request.session else {}
+    has_item = True if len(cart_data)>0 else False
     context = {
-        'data': products,
         'product':product,
-        'image':str(product.image.url).replace('static','')
-    
+        'image':str(product.image.url).replace('static',''),
+        'cart': cart_data,
+        'has_item':has_item
     }
     print("context:", context)
     return render(request, 'products/product_detail.html', context)

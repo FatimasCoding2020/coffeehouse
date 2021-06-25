@@ -1,11 +1,10 @@
 from django.shortcuts import render
 from products.models import Product
-from allauth.account.views import LoginView
 
 
-def index(request):
-    """ View to return the index page """
+# Create your views here.
 
+def contact(request):
     products = Product.objects.all()
     product_data = []
     product_url = [{'name':p.name} for p in products]
@@ -20,4 +19,4 @@ def index(request):
             'sku':product.sku
         })
     request.session['data'] = product_url
-    return render(request, 'home/index.html', {'data':product_data,'cart':cart_data,'has_item':has_item})
+    return render(request, 'home/contact.html', {'data':product_data,'cart':cart_data,'has_item':has_item})

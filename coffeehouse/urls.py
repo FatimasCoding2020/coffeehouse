@@ -20,10 +20,15 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+    path('', include('home.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    path('', include('home.urls')),
     path('', include('products.urls')),
+    path('', include('shopping_bag.urls')),
+    path('', include('checkout.urls')),
+    path('', include('faq.urls')),
+    path('', include('contact.urls')),
+    path('', include('profiles.urls')),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

@@ -31,12 +31,12 @@
                                 <ul class="nav navbar-nav navbar-left">
                                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">Our Collection<span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            {% for d in data %}
+                                            {% for d in request.session.data %}
                                             <li><a href="{% url 'product' name=d.name %}">{{d.name}}</a></li>
                                             {% endfor %}
                                         </ul>
                                     </li>
-                                    <li><a class="smooth-scroll" href="index.html#ourstory">Our Story</a></li>
+                                    <li><a class="smooth-scroll" href="{% url 'home' %}#ourstory">Our Story</a></li>
                                     <li><a class="smooth-scroll" href="https://fatimasmails.wixsite.com/coffeehouse" target="_blank">Blog</a></li>
                                 </ul>
                             </div>
@@ -64,17 +64,24 @@
                                 </div>
                             </li>
                             <li class="head-shhoping-cart"><a href=""><i class="fa fa-shopping-bag"></i></a>
+                                {% if has_item %}
                                 <div class="head-cart">
-                                    <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated ‘serenade’ to bag!</h2>
-                                    <h3>Your Bag (1 )</h3>
+                                    <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{cart.name}} to bag!</h2>
+                                    <h3>Your Bag </h3>
                                     <div class="head-cart-item">
                                         <img src="assets/images/collection/serenade.png" alt="">
-                                        <h2>serenade</h2>
-                                        <h2>Quantity: 1</h2>
-                                        <p>Total Excluding Delivery : $40.00 <br>Spend $5.00 more for Free Delivery!</p>
-                                        <a class="shopping-bag-cart" href="shoppingbag.html">Go to shopping bag </a>
+                                        <h2>{{cart.name}}</h2>
+                                        <h2>Quantity: {{cart.quantity}}</h2>
+                                        <p>Total Excluding Delivery : ${{cart.subtotal}}<br>Spend $5.00 more for Free Delivery!</p>
+                                        <a class="shopping-bag-cart" href="{% url 'bag' %}">Go to shopping bag </a>
                                     </div>
                                 </div>
+                                {% else %}
+                                <div class="head-cart">
+                                    <h2 class="border-line"> Your cart is empty!</h2>
+                                    <a class="shopping-bag-cart" href="{% url 'home' %}#collection">Shop now</a>
+                                </div>
+                                {% endif %}
                             </li>
                         </ul>
                     </div>
@@ -95,11 +102,13 @@
                                 <h2> <i class="fa fa-check-circle"></i> Available</h2>
                                 <h3>$ {{product.price}}</h3>
                                 <p>{{product.description}}</p>
+                                <form method="POST" action="{% url 'add_item' product_id=product.id %}" enctype="multipart/form-data">
+                                    <input type="hidden" name="price" value="{{product.price}}">
                                 <div class="input-group" style="width:50%">
                                     <span class="input-group-btn">
                                         <button class="btn btn-white btn-minuse" type="button">-</button>
                                     </span>
-                                    <input type="text" class="form-control no-padding add-color text-center height-25" maxlength="3" value="1">
+                                    <input type="text" name="quantity" class="form-control no-padding add-color text-center height-25" maxlength="3" value="1">
                                     <span class="input-group-btn">
                                         <button class="btn btn-red btn-pluss" type="button">+</button>
                                     </span>
@@ -107,6 +116,7 @@
                                 <div class="add-button">
                                     <button type="submit" class="btn btn-primary">Add to Bag</button>
                                 </div>
+                            </form>
                             </div>
                         </div>
                         

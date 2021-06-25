@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- START HEADER AREA -->
+    <header class="welcome-area">
+        <div class="container">
+           <div class="row border-bottom-line">
+                <div class="col-md-3 col-xs-4 col-sm-4">
+                    <!-- START LOGO  AREA -->
+                    <div class="logo">
+                        <a href="{% url 'home' %}">
+                            <img src="{% static 'assets/images/logo.png' %}" alt="">
+                        </a>
+                    </div>
+                    <!-- END LOGO  AREA -->
+                </div>
+                <div class="col-md-5 col-xs-8 col-sm-8">
+                    <!-- START MENU  AREA -->
+                    <div class="mainmenu">
+                        <div class="navbar navbar-nobg">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav navbar-left">
+                                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">Our Collection<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            {% for d in request.session.data %}
+                                            <li><a href="{% url 'product' name=d.name %}">{{d.name}}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                    <li><a class="smooth-scroll" href="{% url 'home' %}#ourstory">Our Story</a></li>
+                                   <li><a class="smooth-scroll" href="https://fatimasmails.wixsite.com/coffeehouse" target="_blank">Blog</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END MENU  AREA -->
+                </div>
+                <div class="col-md-2 col-xs-8 col-sm-6">
+                    <div class="search-area">
+                        <form class="form-inline">
+                            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-2 col-xs-4 text-right col-sm-6">
+                    <div class="header-menu-cart-option">
+                        <ul>
+                            <li class="user-click-option"><a href=""><i class="fa fa-user-circle"></i></a>
+                                <div class="user-area">
+                                    <ul>
+                                        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+                                        <li><a href="{% url 'account_login' %}">Login</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="head-shhoping-cart"><a href=""><i class="fa fa-shopping-bag"></i></a>
+                                {% if has_item %}
+                                <div class="head-cart">
+                                    <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{cart.name}} to bag!</h2>
+                                    <h3>Your Bag </h3>
+                                    <div class="head-cart-item">
+                                        <img src="{% static '' %}{{cart.image_link}}" alt="">
+                                        <h2>{{cart.name}}</h2>
+                                        <h2>Quantity: {{cart.quantity}}</h2>
+                                        <p>Total Excluding Delivery : ${{cart.subtotal}}<br>Spend $5.00 more for Free Delivery!</p>
+                                        <a class="shopping-bag-cart" href="{% url 'bag' %}">Go to shopping bag </a>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="head-cart">
+                                    <h2 class="border-line"> Your cart is empty!</h2>
+                                    <a class="shopping-bag-cart" href="{% url 'home' %}#collection">Shop now</a>
+                                </div>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row header-top-part">
+                <!-- START ACCOUNT  AREA -->
+                <div class="col-md-12">
+                    <h1>Check Out</h1>
+                    <div class="single-account">
+                        <p>Login with your account here or place the order as a guest by filling in the form</p>
+                        <div class="row">
+                           <div class="col-md-6">
+                                <div class="contact-information">
+                                    <div class="order-information">
+                                        <h2>Order Summary</h2>
+                                        <ul>
+                                            <li>{{cart.name}}<strong> ${{cart.price}}</strong></li>
+                                            <li>Quantity <strong>{{cart.quantity}}</strong></li>
+                                        </ul>
+                                        <div class="bag-bottom-content">
+                                            <h2>Bag Total: ${{cart.subtotal}}</h2> <br>
+                                            <h2>Delivery: ${{cart.shipping_price}}</h2>
+                                            <h3>Grand Total: ${{cart.total}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <form method="POST" action="{% url 'checkout' %}" enctype="multipart/form-data">
+                                    <h4>Personal Information</h4>
+                                    <div class="form-group">
+                                        <input type="text" name="full_name" class="form-control" id="exampleInputEmail1" aria-describedby="name" placeholder="Name">
+                                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="name" placeholder="Email">
+                                        <input type="text" name="phone_number" class="form-control" id="exampleInputEmail1" aria-describedby="name" placeholder="Phone Number">
+                                    </div>
+                                    <br>
+                                    <h4>Delivery Information</h4> <br>
+                                    <div class="form-group">
+                                        <select name="country" class="selectpicker countrypicker" data-flag="true" value="Postal Code">
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="postcode" class="form-control" id="exampleInputEmail1" aria-describedby="name" placeholder="Postal Code">
+                                        <input type="text" name="town_or_city" class="form-control" id="exampleInputEmail1" aria-describedby="name" placeholder="Town or City">
+                                        <input type="text" name="street_address1" class="form-control" id="exampleInputEmail1" aria-describedby="name" placeholder="Street Address 1">
+                                        <input type="text" name="street_address2" class="form-control" id="exampleInputEmail1" aria-describedby="name" placeholder="Street Address 2">
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1"><a href="#">Save this delivery information to my profile</a></label>
+                                    </div>
+                                    <br>
+                                    <h4>Payment</h4>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input name="cardnumber" type="text" class="form-control col-md-6" id="exampleInputEmail1" aria-describedby="name" placeholder="Card Number">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input name="card_date" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="name" placeholder="MM/YY">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input name="card_cvv" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="name" maxlength="3" placeholder="CVC">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="add-button">
+                                        <button type="submit" class="btn btn-primary">Send</button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- / END ACCOUNT  AREA -->
+            </div>
+        </div>
+    </header>
+    <!-- / END HEADER AREA -->
+
+{% endblock %}>

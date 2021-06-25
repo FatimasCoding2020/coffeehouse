@@ -1,12 +1,11 @@
-{% extends 'account/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
 
     <!-- START HEADER AREA -->
-    <header class="welcome-area login-bg">
-        <div class="container">
-            <div class="row border-bottom-line">
+    <header class="welcome-area">
+       <div class="container">
+           <div class="row border-bottom-line">
                 <div class="col-md-3 col-xs-4 col-sm-4">
                     <!-- START LOGO  AREA -->
                     <div class="logo">
@@ -29,7 +28,7 @@
                                 </button>
                             </div>
                             <div class="navbar-collapse collapse">
-                                <ul class="nav navbar-nav navbar-left">
+                               <ul class="nav navbar-nav navbar-left">
                                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">Our Collection<span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             {% for d in request.session.data %}
@@ -65,15 +64,15 @@
                                 </div>
                             </li>
                             <li class="head-shhoping-cart"><a href=""><i class="fa fa-shopping-bag"></i></a>
-                                {% if request.session.has_item %}
+                                {% if has_item %}
                                 <div class="head-cart">
-                                    <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{request.session.cart.name}} to bag!</h2>
+                                    <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{cart.name}} to bag!</h2>
                                     <h3>Your Bag </h3>
                                     <div class="head-cart-item">
-                                        <img src="{% static '' %}{{request.session.cart.image_link}}" alt="">
-                                        <h2>{{request.session.cart.name}}</h2>
-                                        <h2>Quantity: {{request.session.cart.quantity}}</h2>
-                                        <p>Total Excluding Delivery : ${{request.session.cart.subtotal}}<br>Spend $5.00 more for Free Delivery!</p>
+                                        <img src="{% static '' %}{{cart.image_link}}" alt="">
+                                        <h2>{{cart.name}}</h2>
+                                        <h2>Quantity: {{cart.quantity}}</h2>
+                                        <p>Total Excluding Delivery : ${{cart.subtotal}}<br>Spend $5.00 more for Free Delivery!</p>
                                         <a class="shopping-bag-cart" href="{% url 'bag' %}">Go to shopping bag </a>
                                     </div>
                                 </div>
@@ -91,42 +90,51 @@
 
             <div class="row header-top-part">
                 <!-- START ACCOUNT  AREA -->
-                <div class="col-md-8 col-md-offset-2">
-                    <h1>log In</h1>
-                    {% if form.errors %}
-                        {% for field in form %}
-                            {% for error in field.errors %}
-                                <div class="alert alert-error">
-                                    <strong style="color: red;">{{ error|escape }}</strong>
-                                </div>
-                            {% endfor %}
-                        {% endfor %}
-                            {% for error in form.non_field_errors %}
-                                <div class="alert alert-error">
-                                    <strong style="color: red;">{{ error|escape }}</strong>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
+                <div class="col-md-12">
+                    <h1>Shopping Bag</h1>
                     <div class="single-account">
-                        <p>Don’t have an account yet? Click here to <a href="{% url 'account_signup' %}">Sign up.</a></p>
-                        <form method="POST" action="{% url 'account_login' %}" enctype="multipart/form-data">
-                            {% csrf_token %}
-                                <div class="form-group">
-                                <input type="text" name="login" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                            </div>}}
-                            <div class="form-check">
-                                <input type="checkbox" name="remember" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1"><a href="term.html">Remember Me</a></label>
-                            </div>
-                            <div class="add-button">
-                                <button type="submit" class="btn btn-primary">Login</button>
-                            </div>
-                        </form>
-                        <br>
-                        <p>Forgot Password? <a href="{% url 'account_reset_password' %}">Click here.</a></p>
+                        <table id="cart" class="table table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th style="width:50%">Product</th>
+                                    <th style="width:10%">Price</th>
+                                    <th style="width:8%">Quantity</th>
+                                    <th style="width:22%" class="text-center">Subtotal</th>
+                                    <th style="width:10%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-th="Product">
+                                        <div class="row">
+                                            <div class="col-sm-2 hidden-xs"><img src="{% static '' %}{{cart.image_link}}" alt=""></div>
+                                            <div class="col-sm-10">
+                                                <h4 class="nomargin">{{cart.name}}</h4>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td data-th="Price">${{cart.price}}</td>
+                                    <td data-th="Quantity">
+                                        <input type="number" class="form-control text-center" value="{{cart.quantity}}">
+                                    </td>
+                                    <td data-th="Subtotal" class="text-center">${{cart.subtotal}}</td>
+                                    <td class="actions" data-th="">
+                                        <button class="btn btn-info btn-sm"><i class="fas fa-refresh"></i></button>
+                                        <a class="btn btn-danger btn-sm"  href="{% url 'delete_item'%}"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="bag-bottom-content">
+                            <h2>Bag Total: ${{cart.subtotal}}</h2>
+                            <h2>Delivery: ${{cart.shipping_price}}</h2>
+                            <h3>Grand Total: ${{cart.total}}</h3>
+                            <p>Spend just $2.00 more and get a free delivery!</p>
+                        </div>
+                        <div class="add-button">
+                           <a href="{% url 'home' %}#collection">Keep Shopping</a>
+                           <a href="{% url 'checkout' %}">Go to Check Out</a>
+                        </div>
                     </div>
                 </div>
                 <!-- / END ACCOUNT  AREA -->
@@ -136,4 +144,3 @@
     <!-- / END HEADER AREA -->
 
 {% endblock %}>
-

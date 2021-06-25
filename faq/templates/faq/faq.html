@@ -4,7 +4,7 @@
 {% block content %}
 
     <!-- START HEADER AREA -->
-    <header class="welcome-area login-bg">
+    <header class="welcome-area">
         <div class="container">
             <div class="row border-bottom-line">
                 <div class="col-md-3 col-xs-4 col-sm-4">
@@ -59,21 +59,21 @@
                             <li class="user-click-option"><a href=""><i class="fa fa-user-circle"></i></a>
                                 <div class="user-area">
                                     <ul>
-                                        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
                                         <li><a href="{% url 'account_login' %}">Login</a></li>
+                                        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="head-shhoping-cart"><a href=""><i class="fa fa-shopping-bag"></i></a>
-                                {% if request.session.has_item %}
+                                {% if has_item %}
                                 <div class="head-cart">
-                                    <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{request.session.cart.name}} to bag!</h2>
+                                    <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{cart.name}} to bag!</h2>
                                     <h3>Your Bag </h3>
                                     <div class="head-cart-item">
-                                        <img src="{% static '' %}{{request.session.cart.image_link}}" alt="">
-                                        <h2>{{request.session.cart.name}}</h2>
-                                        <h2>Quantity: {{request.session.cart.quantity}}</h2>
-                                        <p>Total Excluding Delivery : ${{request.session.cart.subtotal}}<br>Spend $5.00 more for Free Delivery!</p>
+                                        <img src="{% static '' %}{{cart.image_link}}" alt="">
+                                        <h2>{{cart.name}}</h2>
+                                        <h2>Quantity: {{cart.quantity}}</h2>
+                                        <p>Total Excluding Delivery : ${{cart.subtotal}}<br>Spend $5.00 more for Free Delivery!</p>
                                         <a class="shopping-bag-cart" href="{% url 'bag' %}">Go to shopping bag </a>
                                     </div>
                                 </div>
@@ -92,41 +92,54 @@
             <div class="row header-top-part">
                 <!-- START ACCOUNT  AREA -->
                 <div class="col-md-8 col-md-offset-2">
-                    <h1>log In</h1>
-                    {% if form.errors %}
-                        {% for field in form %}
-                            {% for error in field.errors %}
-                                <div class="alert alert-error">
-                                    <strong style="color: red;">{{ error|escape }}</strong>
-                                </div>
-                            {% endfor %}
-                        {% endfor %}
-                            {% for error in form.non_field_errors %}
-                                <div class="alert alert-error">
-                                    <strong style="color: red;">{{ error|escape }}</strong>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
+                    <h1>faq</h1>
                     <div class="single-account">
-                        <p>Don’t have an account yet? Click here to <a href="{% url 'account_signup' %}">Sign up.</a></p>
-                        <form method="POST" action="{% url 'account_login' %}" enctype="multipart/form-data">
-                            {% csrf_token %}
-                                <div class="form-group">
-                                <input type="text" name="login" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
+                        <p>Delivery</p>
+
+                        <div class="faq-item">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                How long does the delivery take?
+                            </button>
+                            <div class="collapse" id="collapseExample">
+                                <div class="card card-body">
+                                    You will receive a confirmation e-mail immediately after placing your order. Orders are shipped within 5 business days.
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                            </div>}}
-                            <div class="form-check">
-                                <input type="checkbox" name="remember" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1"><a href="term.html">Remember Me</a></label>
+                        </div>
+                        <div class="faq-item">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+                                Where is my order?
+                            </button>
+                            <div class="collapse" id="collapseExample2">
+                                <div class="card card-body">
+                                    Once your order has been dispatched you will receive a shipping confirmation email and tracking number to track your order.
+                                </div>
                             </div>
-                            <div class="add-button">
-                                <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                        <div class="faq-item">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
+                                How can I cancel my order?
+                            </button>
+                            <div class="collapse" id="collapseExample3">
+                                <div class="card card-body">
+                                    Once your order is placed andsaved to our system for quick processing therefore we can’t make any changes before shipping.
+                                </div>
                             </div>
-                        </form>
+                        </div>
                         <br>
-                        <p>Forgot Password? <a href="{% url 'account_reset_password' %}">Click here.</a></p>
+                        <p>Returns</p>
+                        <div class="faq-item">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample">
+                                What is your return policy?
+                            </button>
+                            <div class="collapse" id="collapseExample4">
+                                <div class="card card-body">
+                                    Unfortunately we don’t offer returns and refunds.If your order is damaged when delivered, we ask you to contact us directly with photos of the damage. Our Customer Care will process your message as soon as possible for you to send your order back for free and get a full refund.
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <p>Other questions? <a href="contact.html">Contact us.</a></p>
                     </div>
                 </div>
                 <!-- / END ACCOUNT  AREA -->
@@ -135,5 +148,5 @@
     </header>
     <!-- / END HEADER AREA -->
 
-{% endblock %}>
 
+{% endblock %}>

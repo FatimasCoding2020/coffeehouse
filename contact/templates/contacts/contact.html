@@ -4,14 +4,14 @@
 {% block content %}
 
     <!-- START HEADER AREA -->
-    <header class="welcome-area login-bg">
+    <header class="welcome-area">
         <div class="container">
             <div class="row border-bottom-line">
                 <div class="col-md-3 col-xs-4 col-sm-4">
                     <!-- START LOGO  AREA -->
                     <div class="logo">
                         <a href="{% url 'home' %}">
-                            <img src="{% static 'assets/images/logo.png' %}" alt="">
+                            <img src="% static 'assets/images/logo.png' %}" alt="">
                         </a>
                     </div>
                     <!-- END LOGO  AREA -->
@@ -59,21 +59,21 @@
                             <li class="user-click-option"><a href=""><i class="fa fa-user-circle"></i></a>
                                 <div class="user-area">
                                     <ul>
-                                        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+                                        <<li><a href="{% url 'account_signup' %}">Sign Up</a></li>
                                         <li><a href="{% url 'account_login' %}">Login</a></li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="head-shhoping-cart"><a href=""><i class="fa fa-shopping-bag"></i></a>
-                                {% if request.session.has_item %}
+                                {% if has_item %}
                                 <div class="head-cart">
-                                    <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{request.session.cart.name}} to bag!</h2>
+                                    <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{cart.name}} to bag!</h2>
                                     <h3>Your Bag </h3>
                                     <div class="head-cart-item">
-                                        <img src="{% static '' %}{{request.session.cart.image_link}}" alt="">
-                                        <h2>{{request.session.cart.name}}</h2>
-                                        <h2>Quantity: {{request.session.cart.quantity}}</h2>
-                                        <p>Total Excluding Delivery : ${{request.session.cart.subtotal}}<br>Spend $5.00 more for Free Delivery!</p>
+                                        <img src="{% static '' %}{{cart.image_link}}" alt="">
+                                        <h2>{{cart.name}}</h2>
+                                        <h2>Quantity: {{cart.quantity}}</h2>
+                                        <p>Total Excluding Delivery : ${{cart.subtotal}}<br>Spend $5.00 more for Free Delivery!</p>
                                         <a class="shopping-bag-cart" href="{% url 'bag' %}">Go to shopping bag </a>
                                     </div>
                                 </div>
@@ -91,42 +91,35 @@
 
             <div class="row header-top-part">
                 <!-- START ACCOUNT  AREA -->
-                <div class="col-md-8 col-md-offset-2">
-                    <h1>log In</h1>
-                    {% if form.errors %}
-                        {% for field in form %}
-                            {% for error in field.errors %}
-                                <div class="alert alert-error">
-                                    <strong style="color: red;">{{ error|escape }}</strong>
-                                </div>
-                            {% endfor %}
-                        {% endfor %}
-                            {% for error in form.non_field_errors %}
-                                <div class="alert alert-error">
-                                    <strong style="color: red;">{{ error|escape }}</strong>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
+                <div class="col-md-12">
+                    <h1>Contact</h1>
                     <div class="single-account">
-                        <p>Don’t have an account yet? Click here to <a href="{% url 'account_signup' %}">Sign up.</a></p>
-                        <form method="POST" action="{% url 'account_login' %}" enctype="multipart/form-data">
-                            {% csrf_token %}
-                                <div class="form-group">
-                                <input type="text" name="login" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
+                        <p>Please use this contact form to leave us a message. You can also email us or call us. We love to get your comments, ideas, feedback on our coffees.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="name" placeholder="Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="name" placeholder="Address">
+                                    </div>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Message"></textarea>
+                                    <div class="add-button">
+                                        <button type="submit" class="btn btn-primary">Send</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="form-group">
-                                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                            </div>}}
-                            <div class="form-check">
-                                <input type="checkbox" name="remember" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1"><a href="term.html">Remember Me</a></label>
+                            <div class="col-md-6">
+                                <div class="contact-information text-center">
+                                    <h2>coffee house.</h2>
+                                    <ul>
+                                        <li><i class="fa fa-phone "></i> +98712345765</li>
+                                        <li><i class="fa fa-envelope "></i> emailcoffeehouse@gmail.com</li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="add-button">
-                                <button type="submit" class="btn btn-primary">Login</button>
-                            </div>
-                        </form>
-                        <br>
-                        <p>Forgot Password? <a href="{% url 'account_reset_password' %}">Click here.</a></p>
+                        </div>
                     </div>
                 </div>
                 <!-- / END ACCOUNT  AREA -->
@@ -135,5 +128,7 @@
     </header>
     <!-- / END HEADER AREA -->
 
-{% endblock %}>
+    
 
+
+{% endblock %}>

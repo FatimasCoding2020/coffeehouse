@@ -69,7 +69,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <a href="{% url 'home' %}">Shop Our Collection <i class="fa fa-angle-right"></i></a>
+                    <a href="{% url 'home' %}#collection">Shop Our Collection <i class="fa fa-angle-right"></i></a>
                 </div>
             </div>
         </div>
@@ -92,7 +92,7 @@
                         <div class="footer-menu">
                             <ul>
                                 <li><a href="{% url 'home' %}">Shop Our Collection</a></li>
-                                {% for d in data %}
+                                {% for d in request.session.data %}
                                 <li><a href="{% url 'product' name=d.name %}">{{d.name}}</a></li>
                                 {% endfor %}
                             </ul>
@@ -103,7 +103,7 @@
                     <div class="single-footer-top">
                         <div class="footer-menu">
                             <ul>
-                                <li><a href="">My Pages</a></li>
+                                <li><a href="{% url 'userprofile' %}">My Pages</a></li>
                                 <li><a href="{% url 'account_login' %}">Login</a></li>
                                 <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
                             </ul>
@@ -115,7 +115,7 @@
                         <div class="footer-menu">
                             <ul>
                                 <li><a href="">Customer Care</a></li>
-                                <li><a href="faq.html">FAQ</a></li>
+                                <li><a href="{% url 'faq' %}">FAQ</a></li>
                                 <li><a href="contact.html">Contact Us</a></li>
                             </ul>
                         </div>
