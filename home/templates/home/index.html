@@ -214,10 +214,16 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="single-footer-top">
                         <div id="subscribe" class="newsletter text-center">
-                            <h2>Subscribe and receive coffee news</h2>
-                            <form>
+                            <h2>Subscribe and receive coffee news
+                                <br>
+                                {% for message in messages %}
+                                <strong style="color: goldenrod;">{{ message }}</strong>
+                                    
+                                {% endfor %}
+                            </h2>
+                            <form method="POST" action="{% url 'subscribe' %}" enctype="multipart/form-data">
                                 <div class="input-prepend">
-                                    <input class="form-control" type="text" id="name" name="name" placeholder="Enter your email">
+                                    <input class="form-control" type="email" id="name" name="email" placeholder="Enter your email">
                                 </div>
                                 <input type="submit" value="Submit" class="btn btn-large read-more" />
                             </form>

@@ -29,6 +29,7 @@ urlpatterns = [
     path('', include('faq.urls')),
     path('', include('contact.urls')),
     path('', include('profiles.urls')),
+    path('', include('newsletter.urls')),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

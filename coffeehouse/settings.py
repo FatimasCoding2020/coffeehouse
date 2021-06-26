@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'faq',
     'contact',
     'profiles',
-    'django_extensions'
+    'django_extensions',
+    'newsletter'
 ]
 
 MIDDLEWARE = [
