@@ -4,6 +4,7 @@ from coffeehouse.verify_request import verify_request
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 # Create your views here.
@@ -38,6 +39,6 @@ def send_message(request):
 
         recipient_list = [settings.EMAIL_HOST_USER]
         send_mail( subject, message, request.user.email, recipient_list )
-
-        return HttpResponseRedirect('/')
+        messages.info(request, "Message has been delivered successfully")
+        return HttpResponseRedirect('/contact')
 

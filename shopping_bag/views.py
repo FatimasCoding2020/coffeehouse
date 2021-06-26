@@ -40,6 +40,7 @@ def add_to_shopping_bag(request, product_id):
         request.session['cart_price'] = cart_data['subtotal']
         has_item = True if len(cart_data)>0 else False
         request.session['has_item'] = has_item
+        messages.info(request, "Item added to your bag")
         return HttpResponseRedirect('/bag')
 
 
@@ -50,3 +51,25 @@ def delete_from_shopping_bag(request):
 
     del request.session['cart']
     return HttpResponseRedirect('/bag')
+
+
+def update_bag(request):
+    if request.method == 'POST':
+        quantity = request.POST.get('quantity')
+        product_id = request.POST.get('pid')
+        price = request.POST.get('price')
+        product_data = Product.objects.get(id=int(product_id))
+        subtotal = round(float(price) * int(quantity),2)
+        total = subtotal+3.0 if subtotal < 45 else subtotal
+        image = str(product_data.image.url).replace('static','')
+        shipping_price = 3.0 if subtotal < 45 else 0
+        cart_data =dict(name=product_data.name,image_link=image[0],quantity=quantity,pid=product_id,price=price,
+        subtotal=subtotal,sku=product_data.sku,total=total,shipping_price=shipping_price)
+        print("***************************")
+        print(cart_data)
+        print("***************************")
+        request.session['cart'] = cart_data
+        request.session['cart_price'] = cart_data['subtotal']
+        has_item = True if len(cart_data)>0 else False
+        request.session['has_item'] = has_item
+        return HttpResponseRedirect('/bag')

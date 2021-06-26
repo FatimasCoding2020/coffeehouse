@@ -1,3 +1,4 @@
+
 {% extends 'account/base.html' %}
 {% load static %}
 
@@ -5,13 +6,14 @@
 
     <!-- START HEADER AREA -->
     <header class="welcome-area passwordbg">
-       <div class="container">
+        <div class="container">
            <div class="row border-bottom-line">
                 <div class="col-md-3 col-xs-4 col-sm-4">
                     <!-- START LOGO  AREA -->
                     <div class="logo">
                         <a href="{% url 'home' %}">
-                            <img src="{% static 'assets/images/logo.png' %}"></a>
+                            <img src="{% static 'assets/images/logo.png' %}" alt="">
+                        </a>
                     </div>
                     <!-- END LOGO  AREA -->
                 </div>
@@ -46,8 +48,8 @@
                 </div>
                 <div class="col-md-2 col-xs-8 col-sm-6">
                     <div class="search-area">
-                        <form class="form-inline" method="POST" action="{% url 'search' %}" enctype="multipart/form-data">
-                            <input class="form-control" type="search" name="searchstring" placeholder="Search" aria-label="Search">
+                        <form class="form-inline">
+                            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
@@ -69,15 +71,15 @@
                                 </div>
                             </li>
                             <li class="head-shhoping-cart"><a href=""><i class="fa fa-shopping-bag"></i></a>
-                                {% if has_item %}
+                                {% if request.session.has_item %}
                                 <div class="head-cart">
-                                    <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{cart.name}} to bag!</h2>
+                                    <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{request.session.cart.name}} to bag!</h2>
                                     <h3>Your Bag </h3>
                                     <div class="head-cart-item">
-                                        <img src="{% static '' %}{{cart.image_link}}" alt="">
-                                        <h2>{{cart.name}}</h2>
-                                        <h2>Quantity: {{cart.quantity}}</h2>
-                                        <p>Total Excluding Delivery : ${{cart.subtotal}}<br>Spend $5.00 more for Free Delivery!</p>
+                                        <img src="{% static '' %}{{request.session.cart.image_link}}" alt="">
+                                        <h2>{{request.session.cart.name}}</h2>
+                                        <h2>Quantity: {{request.session.cart.quantity}}</h2>
+                                        <p>Total Excluding Delivery : ${{request.session.cart.subtotal}}<br>Spend $5.00 more for Free Delivery!</p>
                                         <a class="shopping-bag-cart" href="{% url 'bag' %}">Go to shopping bag </a>
                                     </div>
                                 </div>
@@ -95,25 +97,19 @@
 
             <div class="row header-top-part">
                 <!-- START ACCOUNT  AREA -->
-                <div class="col-md-8 col-md-offset-2">
-                    <h1>Change Password</h1>
-                    {% for message in messages %}
-                    <strong style="color: red;">{{ message }}</strong>
-                    
-                {% endfor %}
-                    <div class="single-account">
-                        <form method="POST" action="{% url 'changepassword' %}" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <input type="password" name="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Current Password">
-                                <input type="password" name="newpassword" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="New Password">
-                                <input type="password" name="confirm_password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="New Password Again">
-                            </div>
-                            <div class="add-button">
-                                <button type="submit" class="btn btn-primary">CHANGE PASSWORD</button>
-                            </div>
-                        </form>
-                        <br>
-                        <p>Forgot Password? <a href="passwordreset.html">Click here.</a></p>
+                <div class="col-md-12">
+                    <div class="single-account text-center">
+                        <h2>Confirm E-mail Address</h2>
+                        <p>
+                            Please confirm that 
+                            <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user 
+                            {{ user_display }}
+                        </p>  
+                        <form method="post" action="{% url 'account_confirm_email' confirmation.key %}" enctype="multipart/form-data">
+                        <div class="add-button">
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </div>
+                    </form>
                     </div>
                 </div>
                 <!-- / END ACCOUNT  AREA -->
@@ -122,6 +118,4 @@
     </header>
     <!-- / END HEADER AREA -->
 
-
 {% endblock %}>
-   

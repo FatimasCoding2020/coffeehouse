@@ -58,10 +58,12 @@
                             <li class="user-click-option"><a href=""><i class="fa fa-user-circle"></i></a>
                                 <div class="user-area">
                                     <ul>
+                                        {% if user.is_authenticated %}
+                                        <li><a href="{% url 'userprofile' %}">Profile</a></li>
+                                        <li><a href="{% url 'account_logout' %}">Logout</a></li>
+                                        {% else %}
                                         <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
                                         <li><a href="{% url 'account_login' %}">Login</a></li>
-                                        {% if user.is_authenticated %}
-                                        <li><a href="{% url 'account_logout' %}">Logout</a></li>
                                         {% endif %}
                                     </ul>
                                 </div>
@@ -137,7 +139,7 @@
                                     </div>
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1"><a href="#">Save this delivery information to my profile</a></label>
+                                        <label class="form-check-label" for="exampleCheck1"><a href="#">Save this delivery information to Profile</a></label>
                                     </div>
                                     <br>
                                     <h4>Payment</h4>

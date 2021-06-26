@@ -58,16 +58,21 @@
                             <li class="user-click-option"><a href=""><i class="fa fa-user-circle"></i></a>
                                 <div class="user-area">
                                     <ul>
+                                        {% if user.is_authenticated %}
+                                        <li><a href="{% url 'userprofile' %}">Profile</a></li>
+                                        <li><a href="{% url 'account_logout' %}">Logout</a></li>
+                                        {% else %}
                                         <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
                                         <li><a href="{% url 'account_login' %}">Login</a></li>
-                                        {% if user.is_authenticated %}
-                                        <li><a href="{% url 'account_logout' %}">Logout</a></li>
                                         {% endif %}
                                     </ul>
                                 </div>
                             </li>
                             <li class="head-shhoping-cart"><a href=""><i class="fa fa-shopping-bag"></i></a>
                                 {% if has_item %}
+                                {% for message in messages %}
+                                <div class="alert alert-success" role="alert">{{ message }}</div>
+                                {% endfor %}
                                 <div class="head-cart">
                                     <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{cart.name}} to bag!</h2>
                                     <h3>Your Bag </h3>
@@ -118,13 +123,17 @@
                                     </td>
                                     <td data-th="Price">${{cart.price}}</td>
                                     <td data-th="Quantity">
-                                        <input type="number" class="form-control text-center" value="{{cart.quantity}}">
+                                        <form method="POST" action="{% url 'updatebag' %}" enctype="multipart/form-data">
+                                            <input type="hidden" name="pid" value="{{cart.pid}}">
+                                            <input type="hidden" name="price" value="{{cart.price}}">
+                                        <input type="number" name="quantity" class="form-control text-center" value="{{cart.quantity}}">
                                     </td>
                                     <td data-th="Subtotal" class="text-center">${{cart.subtotal}}</td>
                                     <td class="actions" data-th="">
-                                        <button class="btn btn-info btn-sm"><i class="fas fa-refresh"></i></button>
+                                        <button type="submit" class="btn btn-info btn-sm"><i class="fas fa-refresh"></i></button>
                                         <a class="btn btn-danger btn-sm"  href="{% url 'delete_item'%}"><i class="fas fa-trash"></i></a>
                                     </td>
+                                </form>
                                 </tr>
                             </tbody>
                         </table>
