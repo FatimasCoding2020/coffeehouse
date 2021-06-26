@@ -9,3 +9,4 @@ stripe
 PyJWT==2.0.1
 django-allauth==0.44.0
 django-extensions
+psycopg2-binary
