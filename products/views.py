@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, HttpResponseRedirect
 from .models import Product
 from coffeehouse.verify_request import verify_request
 
@@ -17,3 +17,16 @@ def view_product(request,name):
     }
     print("context:", context)
     return render(request, 'products/product_detail.html', context)
+
+
+@verify_request
+def search_product(request):
+    if request.method == 'POST':
+        searchstring = request.POST.get('searchstring')
+        if len(searchstring) !=0:
+            product_data = Product.objects.filter(name__contains=searchstring).first()
+            url = '/product/'+product_data.name if product_data is not None else '/#collection'
+            return HttpResponseRedirect(url)
+
+        else:
+            return HttpResponseRedirect('/')

@@ -25,7 +25,7 @@ SECRET_KEY = '3lvjq-0t(4df!q&$vjf#ior0ci=saig6))ayic(o!e(z^(0+%e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ms4-coffeehouse.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['ms4-coffeehouse.herokuapp.com', 'localhost','127.0.0.1']
 
 
 # Application definition

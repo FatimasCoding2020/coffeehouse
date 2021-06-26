@@ -37,7 +37,7 @@
                                             {% endfor %}
                                         </ul>
                                     </li>
-                                    <li><a class="smooth-scroll" href="index.html#ourstory">Our Story</a></li>
+                                    <li><a class="smooth-scroll" href="{% url 'home' %}#ourstory">Our Story</a></li>
                                     <li><a class="smooth-scroll" href="https://fatimasmails.wixsite.com/coffeehouse" target="_blank">Blog</a></li>
                                 </ul>
                             </div>
@@ -47,8 +47,8 @@
                 </div>
                 <div class="col-md-2 col-xs-8 col-sm-6">
                     <div class="search-area">
-                        <form class="form-inline">
-                            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        <form class="form-inline" method="POST" action="{% url 'search' %}" enctype="multipart/form-data">
+                            <input class="form-control" type="search" name="searchstring" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
