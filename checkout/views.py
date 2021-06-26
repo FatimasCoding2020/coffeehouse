@@ -6,7 +6,7 @@ from coffeehouse.verify_request import verify_request
 from django.contrib.auth.decorators import login_required
 
 
-stripe.api_key="sk_test_4eC39HqLyjWDarjtT1zdp7dc"
+stripe.api_key="sk_test_51J6EwyCfm5h2C4JqXa6JXlJXrJmoIGVkJOs7ni46ScOEDY4xSCkvAO0m56wEAw2InfhO3to8tKqnzCOmuYmOBsjQ00rEFzBFo0"
 
 # Create your views here.
 
