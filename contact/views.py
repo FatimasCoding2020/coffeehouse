@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect
 from products.models import Product
 from coffeehouse.verify_request import verify_request
+from django.conf import settings
+from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -22,3 +25,21 @@ def contact(request):
         })
     request.session['data'] = product_url
     return render(request, 'contacts/contact.html', {'data':product_data,'cart':cart_data,'has_item':has_item})
+
+
+@verify_request
+@login_required
+def send_message(request):
+    if request.method == 'POST':
+        full_name = request.POST.get('full_name')
+        address = request.POST.get('address')
+        message = request.POST.get('message')
+        subject = 'User Query'
+        email_from = request.user.email
+        message = " Address: "+address+ " Message: " + message 
+
+        recipient_list = [settings.EMAIL_HOST_USER]
+        send_mail( subject, message, request.user.email, recipient_list )
+
+        return HttpResponseRedirect('/')
+
