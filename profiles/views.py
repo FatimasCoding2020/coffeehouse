@@ -14,6 +14,9 @@ from coffeehouse.verify_request import verify_request
 @verify_request
 @login_required
 def view_profile(request):
+    """
+    This function dsiplay the user profile and his/her details
+    """
     products = Product.objects.all()
     product_data = []
     profile = User.objects.get(id=request.user.id)
@@ -28,6 +31,10 @@ def view_profile(request):
 @verify_request
 @login_required
 def add_profile(request):
+    """
+    This function includes the code to update the user info to complete the profile
+    """
+
     if request.method == 'POST':
         data = request.POST.dict()
         print("data",data)
@@ -43,6 +50,10 @@ def add_profile(request):
 @verify_request
 @login_required
 def change_password(request):
+    """
+    This function includes the code to change the user password
+    """
+
     products = Product.objects.all()
     product_data = []
     profile = User.objects.get(id=request.user.id)

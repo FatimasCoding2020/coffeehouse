@@ -7,6 +7,9 @@ from coffeehouse.verify_request import verify_request
 
 @verify_request
 def view_faq(request):
+    """
+    This function dsiplay the faq page which includes multiple QnA
+    """
     products = Product.objects.all()
     product_data = []
     product_url = [{'name':p.name} for p in products]

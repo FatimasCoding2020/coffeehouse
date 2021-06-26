@@ -6,6 +6,9 @@ from coffeehouse.verify_request import verify_request
 
 @verify_request
 def view_product(request,name):
+    """
+    This function dsiplay the single product and all product details
+    """
     product = Product.objects.filter(name__iexact=name).first()
     cart_data = request.session['cart'] if 'cart' in request.session else {}
     has_item = True if len(cart_data)>0 else False
@@ -21,6 +24,10 @@ def view_product(request,name):
 
 @verify_request
 def search_product(request):
+    """
+    This function search the product and displayed the matched product
+    """
+
     if request.method == 'POST':
         searchstring = request.POST.get('searchstring')
         if len(searchstring) !=0:
