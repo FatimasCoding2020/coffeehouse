@@ -27,13 +27,16 @@ def search_product(request):
     """
     This function search the product and displayed the matched product
     """
-
+    cart_data = request.session['cart'] if 'cart' in request.session else {}
+    has_item = True if len(cart_data)>0 else False
     if request.method == 'POST':
         searchstring = request.POST.get('searchstring')
         if len(searchstring) !=0:
-            product_data = Product.objects.filter(name__contains=searchstring).first()
-            url = '/product/'+product_data.name if product_data is not None else '/#collection'
+            product_data = Product.objects.filter(name__icontains=searchstring).first()
+            if product_data is None:
+                return render(request, 'products/emptysearch.html',{'cart': cart_data,'has_item':has_item})
+            url = '/product/'+product_data.name
             return HttpResponseRedirect(url)
 
         else:
-            return HttpResponseRedirect('/')
+            return render(request, 'products/emptysearch.html',{'cart': cart_data,'has_item':has_item})

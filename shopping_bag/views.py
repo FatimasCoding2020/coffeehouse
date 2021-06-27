@@ -31,7 +31,7 @@ def add_to_shopping_bag(request, product_id):
         total = subtotal+3.0 if subtotal < 45 else subtotal
         image = str(product_data.image.url).replace('static','')
         shipping_price = 3.0 if subtotal < 45 else 0
-        cart_data =dict(name=product_data.name,image_link=image[0],quantity=quantity,pid=product_id,price=price,
+        cart_data =dict(name=product_data.name,image_link=image,quantity=quantity,pid=product_id,price=price,
         subtotal=subtotal,sku=product_data.sku,total=total,shipping_price=shipping_price)
         print("***************************")
         print(cart_data)
@@ -63,7 +63,7 @@ def update_bag(request):
         total = subtotal+3.0 if subtotal < 45 else subtotal
         image = str(product_data.image.url).replace('static','')
         shipping_price = 3.0 if subtotal < 45 else 0
-        cart_data =dict(name=product_data.name,image_link=image[0],quantity=quantity,pid=product_id,price=price,
+        cart_data =dict(name=product_data.name,image_link=image,quantity=quantity,pid=product_id,price=price,
         subtotal=subtotal,sku=product_data.sku,total=total,shipping_price=shipping_price)
         print("***************************")
         print(cart_data)

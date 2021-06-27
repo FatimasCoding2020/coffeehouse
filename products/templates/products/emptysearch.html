@@ -3,7 +3,7 @@
 {% block content %}
 
     <!-- START HEADER AREA -->
-    <header class="welcome-area shop-item">
+    <header class="welcome-area passwordbg">
         <div class="container">
             <div class="row border-bottom-line">
                 <div class="col-md-3 col-xs-4 col-sm-4">
@@ -93,43 +93,22 @@
                 </div>
             </div>
 
-            <div class="row header-top-part">
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="row">
-                       <div class="col-md-6">
-                            <div class="product-image">
-                                <img src="{% static '' %}{{image}}">
-                            </div>
+            <div class="row header-top-part logout-part">
+                <!-- START ACCOUNT  AREA -->
+                <div class="col-md-12">
+                    <div class="single-account text-center">
+                        <h2>Search Results</h2>
+                        <p> No results founds</p>
+                        <div class="add-button">
+                            <a href="{% url 'home' %}#collection">Check Our Collection</a>
                         </div>
-                        <div class="col-md-6">
-                            <div class="products-description">
-                                <h1>{{product.name}}</h1>
-                                <h2> <i class="fa fa-check-circle"></i> Available</h2>
-                                <h3>$ {{product.price}}</h3>
-                                <p>{{product.description}}</p>
-                                <form method="POST" action="{% url 'add_item' product_id=product.id %}" enctype="multipart/form-data">
-                                    <input type="hidden" name="price" value="{{product.price}}">
-                                <div class="input-group" style="width:50%">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-white btn-minuse" type="button">-</button>
-                                    </span>
-                                    <input type="text" name="quantity" class="form-control no-padding add-color text-center height-25" maxlength="3" value="1">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-red btn-pluss" type="button">+</button>
-                                    </span>
-                                </div>
-                                <div class="add-button">
-                                    <button type="submit" class="btn btn-primary">Add to Bag</button>
-                                </div>
-                            </form>
-                            </div>
-                        </div>
-                        
                     </div>
                 </div>
+                <!-- / END ACCOUNT  AREA -->
             </div>
         </div>
     </header>
     <!-- / END HEADER AREA -->
+
 
 {% endblock %}>
