@@ -19,8 +19,8 @@ def view_profile(request):
     """
     products = Product.objects.all()
     product_data = []
-    profile = User.objects.get(id=request.user.id)
-
+    profile = UserProfile.objects.filter(user_id=request.user.id).first()
+    print("profile:", profile)
     product_url = [{'name':p.name} for p in products]
     cart_data = request.session['cart'] if 'cart' in request.session else {}
     has_item = True if len(cart_data)>0 else False
@@ -37,14 +37,25 @@ def add_profile(request):
 
     if request.method == 'POST':
         data = request.POST.dict()
-        print("data",data)
-        data['country'] = data['country'][0]
+        data['country'] = data['country']
         data['user_id'] = request.user.id
         form = UserProfileForm(data)
+        print("form------------------------",data, form.is_valid())
         if form.is_valid():
-            form.save()
+            user_profile = UserProfile.objects.get(user_id=request.user.id)
+            if user_profile is not None:
+                user_profile.full_name = data['full_name']
+                user_profile.phone_number = data['phone_number']
+                user_profile.country = data['country']
+                user_profile.postcode = data['postcode']
+                user_profile.street_address1 = data['street_address1']
+                user_profile.town_or_city = data['town_or_city']
+                user_profile.street_address2 = data['street_address2']
+                user_profile.save()
+            else:
+                UserProfile.objects.create(**data)
 
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/userprofile')
 
 
 @verify_request
