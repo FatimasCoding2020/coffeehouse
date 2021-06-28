@@ -111,11 +111,11 @@
                                     <input type="hidden" name="price" value="{{product.price}}">
                                 <div class="input-group" style="width:50%">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-white btn-minuse" type="button">-</button>
+                                        <button class="btn btn-white btn-minuse" id="sub" onclick="decremaentValue()" type="button">-</button>
                                     </span>
-                                    <input type="text" name="quantity" class="form-control no-padding add-color text-center height-25" maxlength="3" value="1">
+                                    <input type="text" name="quantity" id="number" class="form-control no-padding add-color text-center height-25" maxlength="3" value="1" min="0">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-red btn-pluss" type="button">+</button>
+                                        <button class="btn btn-red btn-pluss" id="add" onclick="incrementValue()" type="button">+</button>
                                     </span>
                                 </div>
                                 <div class="add-button">
@@ -131,5 +131,23 @@
         </div>
     </header>
     <!-- / END HEADER AREA -->
+
+    <script type="text/javascript">
+       function incrementValue()
+        {
+            var value = parseInt(document.getElementById('number').value, 10);
+            value = isNaN(value) ? 0 : value;
+            value++;
+            document.getElementById('number').value = value;
+        }
+
+        function decremaentValue()
+        {
+            var value = parseInt(document.getElementById('number').value, 10);
+            value = isNaN(value) ? 0 : value;
+            value--;
+            document.getElementById('number').value = value;
+        }
+    </script>
 
 {% endblock %}>
