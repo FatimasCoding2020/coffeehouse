@@ -68,6 +68,7 @@ def complete_order(request):
     """
     order_info = request.session['order_info']
     order_data = request.session['order_data']
+    request.session['shipping_price'] = '%.2f' % 3 if float(request.session['bag_total']) < 45 else '0.00'
     billing = dict(bag_total=request.session['bag_total'],
                 grand_total=request.session['grand_total'],shipping_price=request.session['shipping_price'])
     del request.session['cart']
