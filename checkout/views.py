@@ -47,7 +47,7 @@ def checkout(request):
         order_id = str(random.randint(123452,984793))
         product_name = cart_data['name']
         product_price = cart_data['price']
-        shipping_price = 3.0 if cart_data['subtotal'] < 45 else 0
+        shipping_price = 3.0 if float(cart_data['subtotal']) < 45 else 0
         order_info = dict(name=full_name,street_address1=street_address1,phone_number=phone_number,country=country,
         street_address2=street_address2,town_or_city=town_or_city,postcode=postcode,product_name=product_name,email=email,
         subtotal=cart_data['subtotal'],total=cart_data['total'],order_date=order_date,
@@ -95,7 +95,7 @@ def create_payment_charge(tokenid,amount):
     """
 
     payment = stripe.Charge.create(
-                amount= int(amount)*100,                  # convert amount to cents
+                amount= int(float(amount))*100,                  # convert amount to cents
                 currency='usd',
                 description='Example charge',
                 source=tokenid,
