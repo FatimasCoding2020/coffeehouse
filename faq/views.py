@@ -16,4 +16,4 @@ def view_faq(request):
     cart_data = request.session['cart'] if 'cart' in request.session else {}
     has_item = True if len(cart_data)>0 else False
     request.session['data'] = product_url
-    return render(request, 'faq/faq.html', {'cart':cart_data,'has_item':has_item})
+    return render(request, 'faq/faq.html', {'carts':cart_data,'has_item':has_item})

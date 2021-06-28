@@ -11,7 +11,7 @@ def index(request):
     products = Product.objects.all().order_by('name')
     product_data = []
     product_url = [{'name':p.name} for p in products]
-    cart_data = request.session['cart'] if 'cart' in request.session else {}
+    cart_data = request.session['cart'] if 'cart' in request.session else []
     has_item = True if len(cart_data)>0 else False
     for product in products:
         product_data.append({
@@ -22,4 +22,4 @@ def index(request):
             'sku':product.sku
         })
     request.session['data'] = product_url
-    return render(request, 'home/index.html', {'data':product_data,'cart':cart_data,'has_item':has_item})
+    return render(request, 'home/index.html', {'data':product_data,'carts':cart_data,'has_item':has_item})

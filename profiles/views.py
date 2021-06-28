@@ -26,7 +26,7 @@ def view_profile(request):
     cart_data = request.session['cart'] if 'cart' in request.session else {}
     has_item = True if len(cart_data)>0 else False
     request.session['data'] = product_url
-    return render(request, 'profiles/profile.html', {'profile':profile,'cart':cart_data, 'has_profile':has_profile, 'has_item':has_item})
+    return render(request, 'profiles/profile.html', {'profile':profile,'carts':cart_data, 'has_profile':has_profile, 'has_item':has_item})
 
 
 @verify_request
@@ -94,6 +94,6 @@ def change_password(request):
         return HttpResponseRedirect('/userprofile')
 
 
-    return render(request, 'profiles/changepassword.html', {'profile':profile,'cart':cart_data,'has_item':has_item})
+    return render(request, 'profiles/changepassword.html', {'profile':profile,'carts':cart_data,'has_item':has_item})
 
 

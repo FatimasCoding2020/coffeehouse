@@ -15,7 +15,7 @@ def view_product(request,name):
     context = {
         'product':product,
         'image':str(product.image.url).replace('static',''),
-        'cart': cart_data,
+        'carts': cart_data,
         'has_item':has_item
     }
     print("context:", context)
@@ -34,9 +34,9 @@ def search_product(request):
         if len(searchstring) !=0:
             product_data = Product.objects.filter(name__icontains=searchstring).first()
             if product_data is None:
-                return render(request, 'products/emptysearch.html',{'cart': cart_data,'has_item':has_item})
+                return render(request, 'products/emptysearch.html',{'carts': cart_data,'has_item':has_item})
             url = '/product/'+product_data.name
             return HttpResponseRedirect(url)
 
         else:
-            return render(request, 'products/emptysearch.html',{'cart': cart_data,'has_item':has_item})
+            return render(request, 'products/emptysearch.html',{'carts': cart_data,'has_item':has_item})

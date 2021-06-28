@@ -70,16 +70,19 @@
                             </li>
                             <li class="head-shhoping-cart"><a href=""><i class="fa fa-shopping-bag"></i></a>
                                 {% if has_item %}
+                                
                                 <div class="head-cart">
                                     <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{cart.name}} to bag!</h2>
                                     <h3>Your Bag </h3>
+                                    {% for cart in carts %}
                                     <div class="head-cart-item">
                                         <img src="{% static '' %}{{cart.image_link}}" alt="">
                                         <h2>{{cart.name}}</h2>
                                         <h2>Quantity: {{cart.quantity}}</h2>
-                                        <p>Total Excluding Delivery : ${{cart.subtotal}}</p>
+                                        <p>Total Excluding Delivery : ${{cart.subtotal}}<br>Spend $5.00 more for Free Delivery!</p>
                                         <a class="shopping-bag-cart" href="{% url 'bag' %}">Go to shopping bag </a>
                                     </div>
+                                    {% endfor %}
                                 </div>
                                 {% else %}
                                 <div class="head-cart">
@@ -103,13 +106,15 @@
                     <div class="order-information">
                         <h2>Order information:</h2>
                         <ul>
-                            <li>Order number: <strong>{{order.order_id}}</strong></li>
-                            <li>Order date: <strong>{{order.order_date}}</strong></li>
+                            <li>Order number: <strong>{{request.session.order_id}}</strong></li>
+                            <li>Order date: <strong>{{request.session.order_date}}</strong></li>
                         </ul>
                         <br>
                         <h2>Order details:</h2>
                         <ul>
-                            <li>{{order.product_name}}: <strong>1 @ ${{order.product_price}} each</strong></li>
+                            {% for cart in carts %}
+                            <li>{{cart.name}}: <strong>1 @ ${{cart.price}} each</strong></li>
+                            {% endfor %}
                         </ul>
                         <br>
                         <h2>Order details:</h2>
@@ -125,9 +130,9 @@
                         <br>
                         <h2>Billing information:</h2>
                         <ul>
-                            <li>Order total: <strong>${{order.subtotal}}</strong></li>
-                            <li>Delivery fee: <strong>${{order.shipping_price}}</strong></li>
-                            <li>Grand Total: <strong>${{order.total}}</strong></li>
+                            <li>Order total: <strong>${{billing.bag_total}}</strong></li>
+                            <li>Delivery fee: <strong>${{billing.shipping_price}}</strong></li>
+                            <li>Grand Total: <strong>${{billing.grand_total}}</strong></li>
                         </ul>
                     </div>
                 </div>

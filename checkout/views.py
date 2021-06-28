@@ -41,24 +41,23 @@ def checkout(request):
 
         tokenid = generate_card_token(card_number,card_expmonth,card_expyear,card_cvv)
 
-        payment_done = create_payment_charge(tokenid,cart_data['total'])
+        payment_done = create_payment_charge(tokenid,request.session['grand_total'])
         print("payment_done",payment_done)
         order_date = str(datetime.datetime.now().ctime())
         order_id = str(random.randint(123452,984793))
-        product_name = cart_data['name']
-        product_price = cart_data['price']
-        shipping_price = 3.0 if float(cart_data['subtotal']) < 45 else 0
+        cart_result = request.session['cart']
+
+        shipping_price = '.2f' % 3.0 if float(request.session['bag_total']) < 45 else '0.00'
         order_info = dict(name=full_name,street_address1=street_address1,phone_number=phone_number,country=country,
-        street_address2=street_address2,town_or_city=town_or_city,postcode=postcode,product_name=product_name,email=email,
-        subtotal=cart_data['subtotal'],total=cart_data['total'],order_date=order_date,
-        order_id=order_id,product_price=product_price,shipping_price=shipping_price)
-        request.session['order_data'] = order_info
-        del request.session['cart']
-        del request.session['cart_price']
+        street_address2=street_address2,town_or_city=town_or_city,postcode=postcode,email=email)
+        request.session['order_info'] = order_info
+        request.session['order_data'] = cart_result
+        request.session['order_date'] = order_date
+        request.session['order_id'] = order_id
         return HttpResponseRedirect('/completeorder')
 
 
-    return render(request,'checkout/checkout.html',{'cart':cart_data,'has_item':has_item})
+    return render(request,'checkout/checkout.html',{'carts':cart_data,'has_item':has_item})
 
 
 @verify_request
@@ -67,9 +66,16 @@ def complete_order(request):
     """
     This is order complete page showing summary of order product
     """
+    order_info = request.session['order_info']
     order_data = request.session['order_data']
+    billing = dict(bag_total=request.session['bag_total'],
+                grand_total=request.session['grand_total'],shipping_price=request.session['shipping_price'])
+    del request.session['cart']
+    del request.session['bag_total']
+    del request.session['grand_total']
+    del request.session['shipping_price']
     has_item = False
-    return render(request,'checkout/completeorder.html',{'order':order_data,'has_item':has_item})
+    return render(request,'checkout/completeorder.html',{'carts':order_data,'billing':billing,'order':order_info,'has_item':has_item})
 
 
 def generate_card_token(cardnumber,expmonth,expyear,cvv):

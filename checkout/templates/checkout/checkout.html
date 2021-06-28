@@ -70,16 +70,19 @@
                             </li>
                             <li class="head-shhoping-cart"><a href=""><i class="fa fa-shopping-bag"></i></a>
                                 {% if has_item %}
+                                
                                 <div class="head-cart">
                                     <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{cart.name}} to bag!</h2>
                                     <h3>Your Bag </h3>
+                                    {% for cart in carts %}
                                     <div class="head-cart-item">
                                         <img src="{% static '' %}{{cart.image_link}}" alt="">
                                         <h2>{{cart.name}}</h2>
                                         <h2>Quantity: {{cart.quantity}}</h2>
-                                        <p>Total Excluding Delivery : ${{cart.subtotal}}</p>
+                                        <p>Total Excluding Delivery : ${{cart.subtotal}}<br>Spend $5.00 more for Free Delivery!</p>
                                         <a class="shopping-bag-cart" href="{% url 'bag' %}">Go to shopping bag </a>
                                     </div>
+                                    {% endfor %}
                                 </div>
                                 {% else %}
                                 <div class="head-cart">
@@ -105,13 +108,15 @@
                                     <div class="order-information">
                                         <h2>Order Summary</h2>
                                         <ul>
+                                            {% for cart in carts %}
                                             <li>{{cart.name}}<strong> ${{cart.price}}</strong></li>
                                             <li>Quantity <strong>{{cart.quantity}}</strong></li>
+                                            {% endfor %}
                                         </ul>
                                         <div class="bag-bottom-content">
-                                            <h2>Bag Total: ${{cart.subtotal}}</h2> <br>
-                                            <h2>Delivery: ${{cart.shipping_price}}</h2>
-                                            <h3>Grand Total: ${{cart.total}}</h3>
+                                            <h2>Bag Total: ${{request.session.bag_total}}</h2> <br>
+                                            <h2>Delivery: ${{request.session.shipping_price}}</h2>
+                                            <h3>Grand Total: ${{request.session.grand_total}}</h3>
                                         </div>
                                     </div>
                                 </div>

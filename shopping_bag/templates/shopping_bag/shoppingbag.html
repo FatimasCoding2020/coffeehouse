@@ -70,9 +70,11 @@
                             </li>
                             <li class="head-shhoping-cart"><a href=""><i class="fa fa-shopping-bag"></i></a>
                                 {% if has_item %}
+                                
                                 <div class="head-cart">
                                     <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{cart.name}} to bag!</h2>
                                     <h3>Your Bag </h3>
+                                    {% for cart in carts %}
                                     <div class="head-cart-item">
                                         <img src="{% static '' %}{{cart.image_link}}" alt="">
                                         <h2>{{cart.name}}</h2>
@@ -80,6 +82,7 @@
                                         <p>Total Excluding Delivery : ${{cart.subtotal}}<br>Spend $5.00 more for Free Delivery!</p>
                                         <a class="shopping-bag-cart" href="{% url 'bag' %}">Go to shopping bag </a>
                                     </div>
+                                    {% endfor %}
                                 </div>
                                 {% else %}
                                 <div class="head-cart">
@@ -116,6 +119,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for cart in carts %}
                                 <tr>
                                     <td data-th="Product">
                                         <div class="row">
@@ -135,16 +139,17 @@
                                     <td data-th="Subtotal" class="text-center">${{cart.subtotal}}</td>
                                     <td class="actions" data-th="">
                                         <button type="submit" class="btn btn-info btn-sm"><i class="fas fa-refresh"></i></button>
-                                        <a class="btn btn-danger btn-sm"  href="{% url 'delete_item'%}"><i class="fas fa-trash"></i></a>
+                                        <a class="btn btn-danger btn-sm"  href="{% url 'delete_item' pid=cart.pid%}"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </form>
                                 </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                         <div class="bag-bottom-content">
-                            <h2>Bag Total: ${{cart.subtotal}}</h2>
-                            <h2>Delivery: ${{cart.shipping_price}}</h2>
-                            <h3>Grand Total: ${{cart.total}}</h3>
+                            <h2>Bag Total: ${{request.session.bag_total}}</h2>
+                            <h2>Delivery: ${{request.session.shipping_price}}</h2>
+                            <h3>Grand Total: ${{request.session.grand_total}}</h3>
                         </div>
                         <div class="add-button">
                            <a href="{% url 'home' %}#collection">Keep Shopping</a>
