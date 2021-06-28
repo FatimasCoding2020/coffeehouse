@@ -17,7 +17,7 @@ def view_profile(request):
     """
     This function dsiplay the user profile and his/her details
     """
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('name')
     product_data = []
     profile = UserProfile.objects.filter(user_id=request.user.id).first()
     print("profile:", profile)
@@ -55,7 +55,7 @@ def add_profile(request):
                 user_profile.save()
             else:
                 UserProfile.objects.create(**data)
-        messages.info(request, "Profile has been updated ")
+        messages.info(request, "Delivery information updated")
         return HttpResponseRedirect('/userprofile')
 
 
@@ -66,7 +66,7 @@ def change_password(request):
     This function includes the code to change the user password
     """
 
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('name')
     product_data = []
     profile = User.objects.get(id=request.user.id)
 

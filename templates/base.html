@@ -156,7 +156,14 @@
     <!-- / END SCROLL UP AREA -->
 
 
+    <script type="text/javascript">
+        var xSeconds = 3000; // 1 second
 
+        setTimeout(function() {
+        $('.toast-body').fadeOut('fast');
+        $('#box').hide();
+        }, xSeconds);
+    </script>
 
     <!-- LATEST JQUERY -->
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>

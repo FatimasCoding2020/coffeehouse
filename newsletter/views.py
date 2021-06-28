@@ -18,6 +18,6 @@ def email_subscribe(request):
             return HttpResponseRedirect('/#subscribe')
         else:
             Subscribe.objects.create(**dict(email=email))
-            messages.info(request, "Your are subscribed now")
+            messages.info(request, "You are already subscribed!")
             return HttpResponseRedirect('/#subscribe')
 

@@ -90,6 +90,13 @@
                                 {% endif %}
                             </li>
                         </ul>
+                        {% if messages %}
+                                {% for message in messages %}
+                                <div class="toast-body">
+                                    <strong style="color: green;">{{ message }}</strong>
+                                </div>
+                                {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -98,9 +105,6 @@
                 <!-- START ACCOUNT  AREA -->
                 <div class="col-md-12">
                     <h1>Contact</h1>
-                    {% for message in messages %}
-                    <strong style="color: green;">{{ message}}</strong>
-                    {% endfor %}
                     <div class="single-account">
                         <p>Please use this contact form to leave us a message. You can also email us or call us. We love to get your comments, ideas, feedback on our coffees.</p>
                         <div class="row">
@@ -110,7 +114,7 @@
                                         <input type="text" name="full_name" class="form-control" id="exampleInputEmail1" aria-describedby="name" placeholder="Name">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="address" class="form-control" id="exampleInputEmail1" aria-describedby="name" placeholder="Address">
+                                        <input type="text" name="address" class="form-control" id="exampleInputEmail1" aria-describedby="name" placeholder="E-mail Address">
                                     </div>
                                     <textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="5" placeholder="Message"></textarea>
                                     <div class="add-button">

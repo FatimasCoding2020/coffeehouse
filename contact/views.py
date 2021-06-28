@@ -14,7 +14,7 @@ def contact(request):
     """
     This function dsiplay the contact page which includes contact details
     """
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('name')
     product_data = []
     product_url = [{'name':p.name} for p in products]
     cart_data = request.session['cart'] if 'cart' in request.session else {}
@@ -39,6 +39,6 @@ def send_message(request):
 
         recipient_list = [settings.EMAIL_HOST_USER]
         send_mail( subject, message, request.user.email, recipient_list )
-        messages.info(request, "Message has been delivered successfully")
+        messages.info(request, "Your message has been sent!")
         return HttpResponseRedirect('/contact')
 

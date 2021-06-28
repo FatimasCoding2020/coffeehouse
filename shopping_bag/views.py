@@ -40,7 +40,7 @@ def add_to_shopping_bag(request, product_id):
         request.session['cart_price'] = cart_data['subtotal']
         has_item = True if len(cart_data)>0 else False
         request.session['has_item'] = has_item
-        messages.info(request, "Item added to your bag")
+        messages.info(request, str(product_data.name) + " added to bag!")
         return HttpResponseRedirect('/bag')
 
 
@@ -50,7 +50,6 @@ def delete_from_shopping_bag(request):
     """Delete the item from the shopping bag"""
 
     del request.session['cart']
-    messages.info(request, "Item removed from your bag")
     return HttpResponseRedirect('/bag')
 
 
@@ -73,5 +72,5 @@ def update_bag(request):
         request.session['cart_price'] = cart_data['subtotal']
         has_item = True if len(cart_data)>0 else False
         request.session['has_item'] = has_item
-        messages.info(request, "Item updated to your bag")
+        messages.info(request, str(product_data.name) + " added to bag!")
         return HttpResponseRedirect('/bag')
