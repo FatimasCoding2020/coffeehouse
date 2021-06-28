@@ -89,6 +89,13 @@
                                 {% endif %}
                             </li>
                         </ul>
+                        {% if messages %}
+                                {% for message in messages %}
+                                <div class="toast-body">
+                                    <strong style="color: green;">{{ message }}</strong>
+                                </div>
+                                {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -70,11 +70,6 @@
                             </li>
                             <li class="head-shhoping-cart"><a href=""><i class="fa fa-shopping-bag"></i></a>
                                 {% if has_item %}
-                                {% for message in messages %}
-                                <div class="toast-body">
-                                    <strong style="color: green;">{{ message }}</strong>
-                                </div>
-                                {% endfor %}
                                 <div class="head-cart">
                                     <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{cart.name}} to bag!</h2>
                                     <h3>Your Bag </h3>
@@ -94,6 +89,13 @@
                                 {% endif %}
                             </li>
                         </ul>
+                        {% if messages %}
+                                {% for message in messages %}
+                                <div class="toast-body">
+                                    <strong style="color: green;">{{ message }}</strong>
+                                </div>
+                                {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>

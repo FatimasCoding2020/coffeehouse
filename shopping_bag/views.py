@@ -50,6 +50,7 @@ def delete_from_shopping_bag(request):
     """Delete the item from the shopping bag"""
 
     del request.session['cart']
+    messages.info(request, "Item removed from your bag")
     return HttpResponseRedirect('/bag')
 
 

@@ -55,7 +55,7 @@ def add_profile(request):
                 user_profile.save()
             else:
                 UserProfile.objects.create(**data)
-
+        messages.info(request, "Profile has been updated ")
         return HttpResponseRedirect('/userprofile')
 
 
@@ -90,6 +90,7 @@ def change_password(request):
 
         user = User.objects.get(id=request.user.id)
         user.set_password(confirm_password)
+        messages.info(request, "Password has been changed successfully ")
         return HttpResponseRedirect('/userprofile')
 
 
