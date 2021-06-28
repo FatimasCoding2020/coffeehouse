@@ -120,13 +120,15 @@
                                 <div class="contact-information text-center">
                                     <h2>Personal Information</h2>
                                     <ul>
-                                        <li> <strong>Full Name:</strong> {{profile.full_name}}</li>
                                         <li> <strong>Username</strong>:</strong> {{user.username}}</li>
                                         <li> <strong>E-mail:</strong> {{user.email}}</li>
-                                        <li> <strong>Phone Number:</strong> {{profile.phone_number}}</li>
-                                        <li> <strong>Country:</strong> {{profile.country}}</li>
-                                        <li> <strong>Town or City:</strong> {{profile.town_or_city}}</li>
-                                        <li> <strong>Address:</strong> {{profile.street_address1}}</li>
+                                        {% if has_profile %}
+                                            <li> <strong>Full Name:</strong> {{profile.full_name}}</li>
+                                            <li> <strong>Phone Number:</strong> {{profile.phone_number}}</li>
+                                            <li> <strong>Country:</strong> {{profile.country}}</li>
+                                            <li> <strong>Town or City:</strong> {{profile.town_or_city}}</li>
+                                            <li> <strong>Address:</strong> {{profile.street_address1}}</li>
+                                        {% endif %}
                                     </ul>
                                     <div class="add-button">
                                         <a href="{% url 'changepassword' %}">Change password</a>

@@ -21,11 +21,12 @@ def view_profile(request):
     product_data = []
     profile = UserProfile.objects.filter(user_id=request.user.id).first()
     print("profile:", profile)
+    has_profile = False if profile is None else True
     product_url = [{'name':p.name} for p in products]
     cart_data = request.session['cart'] if 'cart' in request.session else {}
     has_item = True if len(cart_data)>0 else False
     request.session['data'] = product_url
-    return render(request, 'profiles/profile.html', {'profile':profile,'cart':cart_data,'has_item':has_item})
+    return render(request, 'profiles/profile.html', {'profile':profile,'cart':cart_data, 'has_profile':has_profile, 'has_item':has_item})
 
 
 @verify_request
