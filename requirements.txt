@@ -10,3 +10,4 @@ PyJWT==2.0.1
 django-allauth==0.44.0
 django-extensions
 psycopg2_binary==2.8.4
+django-storages==1.11.1

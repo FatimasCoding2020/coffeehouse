@@ -72,4 +72,5 @@ def update_bag(request):
         request.session['cart_price'] = cart_data['subtotal']
         has_item = True if len(cart_data)>0 else False
         request.session['has_item'] = has_item
+        messages.info(request, "Item updated to your bag")
         return HttpResponseRedirect('/bag')

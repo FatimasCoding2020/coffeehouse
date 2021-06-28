@@ -71,7 +71,9 @@
                             <li class="head-shhoping-cart"><a href=""><i class="fa fa-shopping-bag"></i></a>
                                 {% if has_item %}
                                 {% for message in messages %}
-                                <div class="alert alert-success" role="alert">{{ message }}</div>
+                                <div class="toast-body">
+                                    <strong style="color: green;">{{ message }}</strong>
+                                </div>
                                 {% endfor %}
                                 <div class="head-cart">
                                     <h2 class="border-line"><i class="fas fa-check"></i> Successfully updated {{cart.name}} to bag!</h2>
@@ -154,5 +156,15 @@
         </div>
     </header>
     <!-- / END HEADER AREA -->
+
+    <script type="text/javascript">
+        var xSeconds = 3000; // 1 second
+
+        setTimeout(function() {
+        $('.toast-body').fadeOut('fast');
+        $('#box').hide();
+        }, xSeconds);
+    </script>
+
 
 {% endblock %}>

@@ -89,6 +89,31 @@
                                 {% endif %}
                             </li>
                         </ul>
+                        {% if messages %}
+                            <div class="toast-container" id="toast_message">
+                                {% for message in messages %}
+                                    {% with message.level as level %}
+                                        {% if level == 40 %}
+                                                <div class="toast-body">
+                                                    <strong style="color: red;">{{ message }}</strong>
+                                                </div>
+                                        {% elif level == 30 %}
+                                                <div class="toast-body">
+                                                    <strong style="color: yellow;">{{ message }}</strong>
+                                                </div>
+                                        {% elif level == 25 %}
+                                                <div class="toast-body">
+                                                    <strong style="color: green;">{{ message }}</strong>
+                                                </div>
+                                        {% else %}
+                                        <div class="toast-body">
+                                            <strong style="color: green;">{{ message }}</strong>
+                                        </div>
+                                        {% endif %}
+                                    {% endwith %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -215,11 +240,6 @@
                     <div class="single-footer-top">
                         <div id="subscribe" class="newsletter text-center">
                             <h2>Subscribe and receive coffee news
-                                <br>
-                                {% for message in messages %}
-                                <strong style="color: goldenrod;">{{ message }}</strong>
-                                    
-                                {% endfor %}
                             </h2>
                             <form method="POST" action="{% url 'subscribe' %}" enctype="multipart/form-data">
                                 <div class="input-prepend">
@@ -234,5 +254,14 @@
         </div>
     </section>
     <!-- / END NEWSLETTER   AREA -->
+
+    <script type="text/javascript">
+        var xSeconds = 3000; // 1 second
+
+        setTimeout(function() {
+        $('.toast-body').fadeOut('fast');
+        $('#box').hide();
+        }, xSeconds);
+    </script>
 
 {% endblock %}>

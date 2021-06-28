@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'contact',
     'profiles',
     'django_extensions',
-    'newsletter'
+    'newsletter',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -62,6 +63,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'coffeehouse.urls'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 TEMPLATES = [
     {
