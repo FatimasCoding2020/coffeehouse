@@ -2,7 +2,8 @@ from django.shortcuts import render, HttpResponseRedirect
 from .models import Subscribe
 from coffeehouse.verify_request import verify_request
 from django.contrib import messages
-
+from django.conf import settings
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -15,9 +16,13 @@ def email_subscribe(request):
         check_subscribe = Subscribe.objects.filter(email=email)
         if check_subscribe.exists():
             messages.info(request, "You are already subscribed!")
-            return HttpResponseRedirect('/#subscribe')
+            return HttpResponseRedirect('/')
         else:
             Subscribe.objects.create(**dict(email=email))
-            messages.info(request, "You are already subscribed!")
-            return HttpResponseRedirect('/#subscribe')
+            email_to = email
+            message = " Thank you, you are now subscribed to coffeehouse and will recieve coffee news"
+
+            send_mail( "Subscription", message, settings.EMAIL_HOST_USER, [email_to])
+            messages.info(request, "You are now subscribed!")
+            return HttpResponseRedirect('/')
 

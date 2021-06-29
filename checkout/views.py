@@ -4,7 +4,8 @@ import random
 from django.shortcuts import render, HttpResponseRedirect
 from coffeehouse.verify_request import verify_request
 from django.contrib.auth.decorators import login_required
-
+from django.conf import settings
+from django.core.mail import send_mail
 
 stripe.api_key="sk_test_51J6EwyCfm5h2C4JqXa6JXlJXrJmoIGVkJOs7ni46ScOEDY4xSCkvAO0m56wEAw2InfhO3to8tKqnzCOmuYmOBsjQ00rEFzBFo0"
 
@@ -75,6 +76,11 @@ def complete_order(request):
     del request.session['bag_total']
     del request.session['grand_total']
     del request.session['shipping_price']
+
+    message = """ Order Details: {order_id}, {price}
+            """.format(order_id=" Order Id: "+request.session['order_id'], price = "Price: "+ billing['grand_total'])
+
+    send_mail( "Order Details", message, settings.EMAIL_HOST_USER, [order_info['email']])
     has_item = False
     return render(request,'checkout/completeorder.html',{'carts':order_data,'billing':billing,'order':order_info,'has_item':has_item})
 
