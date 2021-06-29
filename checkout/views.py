@@ -1,13 +1,18 @@
 import stripe
 import datetime
+import os
 import random
+import json
 from django.shortcuts import render, HttpResponseRedirect
 from coffeehouse.verify_request import verify_request
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.mail import send_mail
+from .models import Order
+from dotenv import load_dotenv, find_dotenv
+load_dotenv()
 
-stripe.api_key="sk_test_51J6EwyCfm5h2C4JqXa6JXlJXrJmoIGVkJOs7ni46ScOEDY4xSCkvAO0m56wEAw2InfhO3to8tKqnzCOmuYmOBsjQ00rEFzBFo0"
+stripe.api_key=settings.STRIPE_KEY
 
 # Create your views here.
 
@@ -49,8 +54,13 @@ def checkout(request):
         cart_result = request.session['cart']
 
         shipping_price = '.2f' % 3.0 if float(request.session['bag_total']) < 45 else '0.00'
-        order_info = dict(name=full_name,street_address1=street_address1,phone_number=phone_number,country=country,
-        street_address2=street_address2,town_or_city=town_or_city,postcode=postcode,email=email)
+        order_info = dict(full_name=full_name,street_address1=street_address1,phone_number=phone_number,country=country,
+        street_address2=street_address2,town_or_city=town_or_city,postcode=postcode,email=email,user_id=request.user.id,
+        stripe_pid=payment_done['id'],order_number = order_id,original_bag=json.dumps(cart_result),
+        order_total=request.session['bag_total'],grand_total=request.session['grand_total'],delivery_cost=float(request.session['shipping_price']))
+        
+        Order.objects.create(**order_info)
+
         request.session['order_info'] = order_info
         request.session['order_data'] = cart_result
         request.session['order_date'] = order_date
@@ -77,8 +87,8 @@ def complete_order(request):
     del request.session['grand_total']
     del request.session['shipping_price']
 
-    message = """ Order Details: {order_id}, {price}
-            """.format(order_id=" Order Id: "+request.session['order_id'], price = "Price: "+ billing['grand_total'])
+    message = """ Order Details order_id: ' {order_id} ', price: ' {price} '
+            """.format(order_id=request.session['order_id'], price = str(order_info['grand_total']))
 
     send_mail( "Order Details", message, settings.EMAIL_HOST_USER, [order_info['email']])
     has_item = False
@@ -114,6 +124,6 @@ def create_payment_charge(tokenid,amount):
                 source=tokenid,
                 )
 
-    payment_check = payment['paid']    # return True for payment
+    payment_check = {'id':payment['id'],'paid':payment['paid']}    # return True for payment
 
     return payment_check
