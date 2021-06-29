@@ -30,16 +30,22 @@ def view_profile(request):
             has_order = False
         else:
             has_order = True
+    result = []
     if has_order:
         order_res = [json.loads(o.original_bag) for o in order]
+        for bags in order_res:
+            for bag in bags:
+                if bag not in result:
+                    result.append(bag)
 
-    print("profile:", order_res)
+
+    print("profile:", result)
     has_profile = False if profile is None else True
     product_url = [{'name':p.name} for p in products]
     cart_data = request.session['cart'] if 'cart' in request.session else {}
     has_item = True if len(cart_data)>0 else False
     request.session['data'] = product_url
-    return render(request, 'profiles/profile.html', {'profile':profile,'orders':order_res,'carts':cart_data, 'has_profile':has_profile, 'has_item':has_item})
+    return render(request, 'profiles/profile.html', {'profile':profile,'orders':result,'carts':cart_data, 'has_profile':has_profile, 'has_item':has_item})
 
 
 @verify_request

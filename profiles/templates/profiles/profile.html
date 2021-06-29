@@ -152,15 +152,13 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                                {% for bags in orders %}
-                                                    {% for order in bags %}
+                                                {% for order in orders %}
                                                     <tr>
                                                         <td>{{order.pid}}</td>
                                                         <td>{{order.name}}</td>
                                                         <td>{{order.quantity}}</td>
                                                         <td>{{order.total}}</td>
                                                     </tr>
-                                                    {% endfor %}
                                             {% endfor %}
                                             </tbody>
                                         </table>
