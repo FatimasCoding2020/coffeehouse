@@ -140,6 +140,33 @@
                                             <li> <strong>Address:</strong> {{profile.street_address1}}</li>
                                         {% endif %}
                                     </ul>
+                                    <h2>Order History</h2>
+                                    {% if has_profile %}
+                                    <table class="table table-dark">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Qty</th>
+                                                <th scope="col">Total Price</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for bags in orders %}
+                                                    {% for order in bags %}
+                                                    <tr>
+                                                        <td>{{order.pid}}</td>
+                                                        <td>{{order.name}}</td>
+                                                        <td>{{order.quantity}}</td>
+                                                        <td>{{order.total}}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        {% else %}
+                                        <h3>No items purchased yet</h3>
+                                        {% endif %}
                                     <div class="add-button">
                                         <a href="{% url 'changepassword' %}">Change password</a>
                                     </div>

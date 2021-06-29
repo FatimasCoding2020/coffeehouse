@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from django.contrib.auth.models import User
 from products.models import Product
@@ -7,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from coffeehouse.verify_request import verify_request
-
+from checkout.models import Order
 
 # Create your views here.
 
@@ -20,13 +21,25 @@ def view_profile(request):
     products = Product.objects.all().order_by('name')
     product_data = []
     profile = UserProfile.objects.filter(user_id=request.user.id).first()
-    print("profile:", profile)
+    order = Order.objects.filter(user_id=request.user.id).all()
+    has_order = False
+    if order is None:
+        has_order = False
+    else:
+        if len(order) ==0 :
+            has_order = False
+        else:
+            has_order = True
+    if has_order:
+        order_res = [json.loads(o.original_bag) for o in order]
+
+    print("profile:", order_res)
     has_profile = False if profile is None else True
     product_url = [{'name':p.name} for p in products]
     cart_data = request.session['cart'] if 'cart' in request.session else {}
     has_item = True if len(cart_data)>0 else False
     request.session['data'] = product_url
-    return render(request, 'profiles/profile.html', {'profile':profile,'carts':cart_data, 'has_profile':has_profile, 'has_item':has_item})
+    return render(request, 'profiles/profile.html', {'profile':profile,'orders':order_res,'carts':cart_data, 'has_profile':has_profile, 'has_item':has_item})
 
 
 @verify_request
