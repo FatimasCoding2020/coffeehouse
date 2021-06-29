@@ -1,14 +1,16 @@
 import json
-from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
-from django.contrib.auth.models import User
-from products.models import Product
-from .models import UserProfile
-from .forms import UserProfileForm
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate
-from coffeehouse.verify_request import verify_request
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
+
 from checkout.models import Order
+from coffeehouse.verify_request import verify_request
+from products.models import Product
+from .forms import UserProfileForm
+from .models import UserProfile
+
 
 # Create your views here.
 
@@ -16,7 +18,8 @@ from checkout.models import Order
 @login_required
 def view_profile(request):
     """
-    This function dsiplay the user profile and his/her details
+    This function dsiplay
+    the user profile and his/her details
     """
     products = Product.objects.all().order_by('name')
     product_data = []
@@ -26,7 +29,7 @@ def view_profile(request):
     if order is None:
         has_order = False
     else:
-        if len(order) ==0 :
+        if len(order) == 0:
             has_order = False
         else:
             has_order = True
@@ -38,21 +41,25 @@ def view_profile(request):
                 if bag not in result:
                     result.append(bag)
 
-
     print("profile:", result)
     has_profile = False if profile is None else True
-    product_url = [{'name':p.name} for p in products]
+    product_url = [{'name': p.name} for p in products]
     cart_data = request.session['cart'] if 'cart' in request.session else {}
-    has_item = True if len(cart_data)>0 else False
+    has_item = True if len(cart_data) > 0 else False
     request.session['data'] = product_url
-    return render(request, 'profiles/profile.html', {'profile':profile,'orders':result,'carts':cart_data, 'has_profile':has_profile, 'has_item':has_item})
+    return render(request, 'profiles/profile.html',
+                  {'profile': profile, 'orders': result,
+                   'carts': cart_data,
+                   'has_profile': has_profile,
+                   'has_item': has_item})
 
 
 @verify_request
 @login_required
 def add_profile(request):
     """
-    This function includes the code to update the user info to complete the profile
+    This function includes
+    the code to update the user info to complete the profile
     """
 
     if request.method == 'POST':
@@ -60,7 +67,7 @@ def add_profile(request):
         data['country'] = data['country']
         data['user_id'] = request.user.id
         form = UserProfileForm(data)
-        print("form------------------------",data, form.is_valid())
+        print("form------------------------", data, form.is_valid())
         if form.is_valid():
             user_profile = UserProfile.objects.get(user_id=request.user.id)
             if user_profile is not None:
@@ -82,16 +89,17 @@ def add_profile(request):
 @login_required
 def change_password(request):
     """
-    This function includes the code to change the user password
+    This function includes
+    the code to change the user password
     """
 
     products = Product.objects.all().order_by('name')
     product_data = []
     profile = User.objects.get(id=request.user.id)
 
-    product_url = [{'name':p.name} for p in products]
+    product_url = [{'name': p.name} for p in products]
     cart_data = request.session['cart'] if 'cart' in request.session else {}
-    has_item = True if len(cart_data)>0 else False
+    has_item = True if len(cart_data) > 0 else False
     request.session['data'] = product_url
     if request.method == 'POST':
         password = request.POST.get('password')
@@ -112,7 +120,7 @@ def change_password(request):
         messages.info(request, "Password has been changed successfully ")
         return HttpResponseRedirect('/userprofile')
 
-
-    return render(request, 'profiles/changepassword.html', {'profile':profile,'carts':cart_data,'has_item':has_item})
-
-
+    return render(request, 'profiles/changepassword.html',
+                  {'profile': profile,
+                   'carts': cart_data,
+                   'has_item': has_item})
