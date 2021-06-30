@@ -134,7 +134,7 @@
                                         <form method="POST" action="{% url 'updatebag' %}" enctype="multipart/form-data">
                                             <input type="hidden" name="pid" value="{{cart.pid}}">
                                             <input type="hidden" name="price" value="{{cart.price}}">
-                                        <input type="number" name="quantity" class="form-control text-center" value="{{cart.quantity}}">
+                                        <input type="number" name="quantity" min="1" maxlength="3" class="form-control text-center" value="{{cart.quantity}}">
                                     </td>
                                     <td data-th="Subtotal" class="text-center">${{cart.subtotal}}</td>
                                     <td class="actions" data-th="">
