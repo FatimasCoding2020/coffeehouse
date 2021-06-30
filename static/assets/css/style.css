@@ -790,6 +790,7 @@ a.read-more:hover,
     transition: .3s;
     border-bottom: 1px solid #fff;
     padding-left: 0px;
+    color:#fff;
 }
 
 .form-control:focus {
