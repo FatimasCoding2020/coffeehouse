@@ -1,6 +1,6 @@
-<h1 align="center">
-     <a href="https://github.com/FatimasCoding2020/MS3.git" target="_blank"><img src="https://i.ibb.co/jkVzTsB/coffeehouse-banner.png" alt="coffeehouse-banner"/></a> 
-</h1>
+<p align="center">
+<img src="assets/coffeehouse-banner.gif" alt=" ">
+</p>
 
 <h1 align="center">Testing</h1>
 
@@ -273,12 +273,15 @@ I used the automated tool Lighthouse to test the quality of the web pages.
 
 <span id="bugs"></span>
 
-## 7. Bugs 
+## 7. Bugs & other
 
 1. A bug was found in the password reset page of the website. 
     - I checked that a different password in new password and confirm password is needed and that was the reason for error.
 2. A bug was found in products page I was unable to increase or decrease quantities of products. 
     - Fixed by implementing the button feature. 
+3. I would like to work on writing meaningful commit messages starting with a capital letter, in the imperative mood and no links.
+4. I would like to make sure I add more error handler pages like 404 besides 500 error page.
+5. I would like work on responsiveness and remove the horizontal scroll on the ipad and ipad pro views.
 ---
 
 <span id="future-testing"></span>

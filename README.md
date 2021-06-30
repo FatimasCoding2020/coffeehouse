@@ -1,6 +1,6 @@
-<h1 align="center">
-     <a href="https://github.com/FatimasCoding2020/MS3.git" target="_blank"><img src="https://i.ibb.co/qWDRSkG/coffeehouse-banner.png" alt="coffeehouse-banner" border="0"></a> 
-</h1>
+<p align="center">
+<img src="assets/coffeehouse-banner.gif" alt=" ">
+</p>
 
 <div align="center">
  
