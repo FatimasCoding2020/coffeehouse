@@ -69,7 +69,7 @@ def add_profile(request):
         form = UserProfileForm(data)
         print("form------------------------", data, form.is_valid())
         if form.is_valid():
-            user_profile = UserProfile.objects.get(user_id=request.user.id)
+            user_profile = UserProfile.objects.filter(user_id=request.user.id).first()
             if user_profile is not None:
                 user_profile.full_name = data['full_name']
                 user_profile.phone_number = data['phone_number']
