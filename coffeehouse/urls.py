@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.views.defaults import page_not_found
 
 def handler_404(request, exception):
-    return page_not_found(request, exception, template_name="errors/404.html")
+    return page_not_found(request, exception, template_name="404.html")
 
 urlpatterns = [
     path('', include('home.urls')),
