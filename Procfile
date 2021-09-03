@@ -1,1 +1,1 @@
-web: gunicorn coffeehouse.wsgi
+web: python manage.py collectstatic --no-input; gunicorn coffeehouse.wsgi
