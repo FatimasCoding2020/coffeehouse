@@ -117,6 +117,7 @@ def change_password(request):
 
         user = User.objects.get(id=request.user.id)
         user.set_password(confirm_password)
+        user.save()
         messages.info(request, "Password has been changed successfully ")
         return HttpResponseRedirect('/userprofile')
 
